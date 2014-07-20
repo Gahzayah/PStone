@@ -1,0 +1,154 @@
+/*  Input.css
+*	
+*	Eigeschaften f?r Forms & Input ( Gr??e,Schriftart,Abstand..)
+*	@Autor Martin Hinrichs
+*
+*       Content:
+*       o File-Upload Form
+*       o Input-Deklaration ( Submit,Button,Reset )
+*/
+
+/* -- Form
+Task: FileUpload Form
+*/
+
+
+
+/* -- Input */
+input {
+    margin: 1.4em 0.3em;
+    height: 2em;
+    padding: 0 0.5em;
+    font-weight: bold;
+    border: 1px solid #999;
+    display: block;
+}
+textarea {
+    margin:1em 0.3em;
+    padding: 0 0.5em;
+    font-weight: bold;
+    border: 1px solid #999;
+    display: block;  
+    resize: none;
+}
+
+input[type="button"], input[type="submit"], input[type="reset"] {
+    display: inline-block;
+    cursor: pointer;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow;
+    transition-property: box-shadow;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    /* font-size:0.9em; */  
+}
+
+input[type="submit"] {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+    box-shadow:  0 0 0.05em 0.05em #003F7A, 0 0 1px rgba(0, 0, 0, 0);
+    background-color: #DEE8FF;
+}
+
+input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus {
+    box-shadow:  0 0 0.05em 0.05em #003F7A, 0 0 1px rgba(0, 0, 0, 0);
+    background-color: #DEE8FF;
+}
+
+input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active {
+    box-shadow:  0 0 0.05em 0.05em #003F7A, 0 0 1px rgba(0, 0, 0, 0);
+    background-color: #D1E8FF;
+}
+
+.login-container{
+    position: fixed;
+
+    width: 300px;
+
+    /* height: 220px; */
+    top: 50%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -170px;
+    background: #eee;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    -webkit-animation-name: fadeIn;
+    -webkit-animation-fill-mode: both;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: fadeIn;
+    -moz-animation-fill-mode: both;
+    -moz-animation-duration:0.5s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: linear;
+    animation-name: fadeIn;
+    animation-fill-mode: both;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+.login-container form {
+    margin: 20px auto;
+    /* margin-top: 20px; */
+    height: 100%;
+}
+.login-container input {
+    display: inline-block;
+    width: 180px;
+    margin: 1em 0;
+    height: 33px;
+}
+
+.login-container label {
+    color: #555;
+    display: inline-block;
+    margin-left: 18px;
+    line-height: 33px;
+    font-size: 16px;
+    /* letter-spacing: -0.5px; */
+}
+
+
+.login-container #lower {
+    background: #ecf2f5;
+    width: 100%;
+    height: 69px;
+    margin-top: 20px;
+    box-shadow: inset 0 1px 1px #fff;
+    border-top: 1px solid #ccc;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.login-container input[type=checkbox] {
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+.login-container .check {
+    margin-left: 3px;
+    font-size: 11px;
+    color: #444;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.login-container input[type=submit] {
+    /* float: right; */
+    margin-left: 159px;
+    width: 120px;
+    height: 30px;
+    cursor: pointer;
+}
+

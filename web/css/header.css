@@ -1,0 +1,83 @@
+/* 
+    Created on : 28.06.2014, 12:28:11
+    Author     : MaHi
+*/
+
+.wrapper {
+    background-image: url(../images/4.jpg);
+    background-repeat:repeat-x;  
+}
+header , header ul , nav , nav ul{
+    position: relative;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+header div , nav ul {
+    display: inline-block;
+}
+header ul li , nav ul li{
+    float: left; 
+}
+header h1 , header h2 {
+    line-height: 1.1em;
+}
+/* Title */
+header h1 {    
+    margin:0;
+    font-family: 'Sofia', cursive;
+    font-size: 4em;
+    word-spacing: -0.2em;
+    color: #F8F8F8;
+}
+header h1:first-letter {
+    padding: 0 3px;
+    /* background: #EDF5F7; */
+}
+/* SubTitle */
+header h2 {
+    margin: 0 0 20px 0;
+    font-family: 'Swanky and Moo Moo', cursive;
+    font-size: 2em;
+    color: #DFE1E2;
+}
+/* Name */
+header .Autor {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #555;
+}
+header p {
+    margin: 0;
+    padding: 0;
+    color: #555;
+}
+
+nav {
+    background: #F5F5F5;
+    margin:32px 0 0 0;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+}
+nav ul {
+    padding:0;
+    width:auto;
+    height: 24px;
+    list-style-type: none;    
+}
+nav ul li {
+    margin: 0 0 0 0.5em;
+    /* padding: 0 5px 0 5px; */
+    font-family: Times New Roman,Verdana,lucida console,Georgia sans-serif;
+    text-transform: uppercase;
+    color:#444;
+    font-size: 28px;
+    line-height:28px;
+    border-bottom: 3px solid #eee;
+}
+nav a:hover li{
+    border-bottom: 3px solid #444;
+}
+nav a:link ,nav a:active ,nav a:visited {
+
+}

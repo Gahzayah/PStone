@@ -1,0 +1,44 @@
+/* 
+    Created on : 13.07.2014, 11:10:58
+    Author     : MaHi
+*/
+
+form#upload  span {
+    line-height: 27px;
+}
+form#upload .filename {          
+    color:#777;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+}
+form#upload{
+    font-size: 14px;
+}
+
+.beforeUpload {
+    height: 27px;
+    max-height: 27px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.beforeUpload .image {
+    width:60px;
+}
+.beforeUpload img {
+    height: 27px;
+}
+.beforeUpload img , .filename , .beforeUpload  input , .beforeUpload .image{
+    float:left;
+    margin: 0 5px 0 0;
+}
+.beforeUpload div {
+    display: inline-block;
+    width: auto;
+}
+.closebtn{
+    float:right;
+    font-size: 18px;
+    margin: 0 10px;
+}

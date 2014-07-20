@@ -1,0 +1,51 @@
+/* 
+    Created on : 29.06.2014, 12:28:11
+    Author     : MaHi
+*/
+body{  
+
+}
+
+main {
+    font-size: 0;           /* Required to work with Inline-Blocks as Struture Element */
+    box-sizing: border-box;
+    width: 800px;
+    height: auto;
+    margin: 15px auto;
+    padding: 10px 0;
+/*    background:#eee;*/
+}
+main section {
+    padding: 0 0 0 10px;
+    margin: 0;   
+}
+
+/* Use percent Boxes horizontal */
+.perc10{width: 10%}.perc20{width: 20%}.perc30{width: 30%}.perc40{width: 40%}.perc50{width: 50%}.perc60{width: 60%}
+.perc10{width: 70%}.perc80{width: 80%}.perc90{width: 90%}
+
+/* Custom Definition in Width */
+.pix360{width: 360px}.pix400{width:400px}.pix200{width:200px}.pix600{width:600px}.pix95{width:95px}.pix155{width:155px}.pix205{width:205px}
+/* Define the Box-Logic */
+.perc10 , .perc20 , .perc30 , .perc40 , .perc50 , .perc60 , .perc70 , .perc80 , .perc90 ,
+.pix360,.pix400,.pix200,.pix600,.pix95,.pix155,.pix205
+{
+    display: inline-block;
+    box-sizing: border-box;    /* To use padding inside of the boxes */
+/*  font-size: 16px;               White-Space Bug on inline-block Element - Set FontSize again */
+    vertical-align: top;       /* Align Box to Top */
+}
+@media (max-width: 600px) {
+ .perc10 , .perc20 , .perc30 , .perc40 , .perc50 , .perc60 , .perc70 , .perc80 , .perc90 ,
+ .pix360,.pix400 {   
+    display: block;
+    width:100%;
+  }
+}
+.borderLeft {
+    border-left: 1px dotted #444;
+    margin-top:72px;
+}
+borderLefto{
+    border-left: 1px dotted #444;
+}

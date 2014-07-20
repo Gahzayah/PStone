@@ -1,0 +1,41 @@
+/*  Base.css
+*	
+*	Einbindung aller CSS-Files
+*	@Autor Martin Hinrichs
+*
+*       Content:
+*       o Importing CSS-Files
+*       o Floats & Clears
+*/
+//@import url("custom.css");
+//@import url("custom.nav.css");
+//@import url("custom.color.css");
+//@import url("gridrotator/custom.grid.css");
+//@import url("lightbox.css");
+
+@import url("typografie.css");
+@import url("listen.css");
+@import url("elements.css");
+@import url("input.css");
+@import url("header.css");
+//@import url("print.css");
+@import url("font-awesome-4.0.3/css/font-awesome.min.css");
+
+body{
+    margin:0;
+    padding:0;
+    overflow:hidden;       
+}
+.right {
+float: left;
+}
+.left {
+float: left;
+}
+.clear{
+clear:both;
+}
+.borderclear {
+ margin: 1px ;  
+     font-size:12px;
+}

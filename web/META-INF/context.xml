@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="false" path="/psg">
+    <Realm className="org.apache.catalina.realm.MemoryRealm" 
+           pathname="C:\Users\Fjubuu\Desktop\ProjectStone\web\WEB-INF\psg-users.xml" />
+</Context>
+

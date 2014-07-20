@@ -1,0 +1,43 @@
+/* 
+    Created on : 03.07.2014, 04:19:51
+    Author     : MaHi
+*/
+
+section ul {
+    list-style-type: none;
+    box-sizing: border-box;
+    margin: 0 14px;
+    padding:0;
+}
+
+section ul a:hover li{
+    background:#444;
+}
+section ul li {
+    background:#fff;
+    overflow: hidden;
+}
+.gallery {
+    float:left;
+    margin-bottom: 10px;
+}
+.gallery div {
+        overflow:hidden;
+}
+.galleryinfo p{
+    font-size: 12px;
+    color:#999;
+    margin: 0 0 5px 0;
+    padding:0;
+    line-height: 13px;
+}
+.gallery img{
+    font-size: 0.1em;
+    width:95px;
+}
+.galleryinfo {
+    padding-left: 15px;
+}
+.gallery h4 {
+    margin: 0 0 5px;
+}

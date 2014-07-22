@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -35,7 +36,7 @@ public class Images implements Serializable {
     private byte[] fileBlob = null;
     private int thumbCat = 0;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timeStmp = null;
+    private Date timeStmp = new Date();
   
     private static final long serialVersionUID = 1L;
     

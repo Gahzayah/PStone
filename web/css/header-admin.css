@@ -36,17 +36,18 @@ header{
     float:none;
     text-align: left;
     font-size: 14px;
-    color: #444;
+    color: #CC4511;
 }
 .adminMenu ul {
     list-style-type: none;
     float:left;
     margin: 0 0 10px 0;
     padding: 0 0 0 15px;
-    width:150px;
+    width: 175px;
 }
 .adminMenu a:link ,.adminMenu a:active ,.adminMenu a:visited {
     color:#222;
+    text-decoration: none;
 }
 .adminMenu a:hover{
     color:#111;
@@ -157,6 +158,15 @@ nav a:link{
 }
 nav a:hover li{
     border-bottom: 3px solid #444;
+}
+.output {
+    margin-bottom:16px;
+}
+.output i{
+   color: #CC4511;
+}
+.output td ,.output th {
+    border-left: none;
 }
 
 

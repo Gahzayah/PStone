@@ -12,7 +12,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,16 +27,17 @@ import javax.persistence.TemporalType;
  *
  * @author MaHi
  */
-
+@Entity
 public class ImgGallery implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long imgGalleryID;
-    //@OneToMany(mappedBy = "gallery")
-   // private List<ImgCat> category = new ArrayList();
+    @OneToMany(mappedBy = "gallery",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<ImgCat> category = new ArrayList();
     private String name;
+    private String description;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timestmp;
+    private Date timestmp = new Date();
 
     public Long getImgGalleryID() {
         return imgGalleryID;
@@ -47,6 +50,23 @@ public class ImgGallery implements Serializable {
     public String getName() {
         return name;
     }
+
+    public List<ImgCat> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<ImgCat> category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
 
     public void setName(String name) {
         this.name = name;

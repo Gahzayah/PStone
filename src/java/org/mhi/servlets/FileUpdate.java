@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.mhi.persistence.ImgGallery;
 import org.mhi.persistence.ImgService;
 
 /**
@@ -27,28 +28,31 @@ public class FileUpdate extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException {    
         
         String c_category    = request.getParameter("newCategory");
         String g_gallery     = request.getParameter("newGallery");
         String c_description = request.getParameter("newCDescription");
         String g_description = request.getParameter("newGDescription");
+        String[] s_id        = request.getParameterValues("gallery");
+        Long id              = null;
         /* Database Image-Service Class */
         ImgService service = new ImgService();
 
         /* Update and create new Gallery */
-        if (c_category != null && c_category.equals("Neue Kategorie")==false && c_description.equals("Beschreibung")==false ) {
+        if (c_category != null) {
             // Create
-            
-            service.newCategory(c_category, c_description);
-            response.sendRedirect(request.getServletContext().getContextPath() + "/admin/upload");
+            id = Long.valueOf(s_id[0]);
+            ImgGallery gal = service.getGalleryByID(id);
+           
+            service.newCategory(c_category, c_description ,gal);
+            response.sendRedirect(request.getServletContext().getContextPath() + "/admin/category");
         } 
         /* Update and create new Category */ 
-        else if (g_gallery != null && g_gallery.equals("Neue Gallery")==false && g_description.equals("Beschreibung")==false) {
+        else if (g_gallery != null) {
             // Create
             service.newGallery(g_gallery, g_description);
-            response.sendRedirect(request.getServletContext().getContextPath() + "/admin/upload");
+            response.sendRedirect(request.getServletContext().getContextPath() + "/admin/gallery");
         } 
         /* Anfrage konnte nicht bearbeitet werden */    
         else {

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpUtils;
+import org.mhi.logging.Debug;
 
 /**
  *
@@ -28,16 +30,30 @@ public class Authentication extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /* Session Object */
         HttpSession session = request.getSession();
+        Object auth = session.getAttribute("isAuthenticated");
+        /* Complete Path from Context ( ContextPath , ServletPath ,PathInfo 
+         Beispiel: /psg/admin/<everything> */
+        String reqCtxt = request.getContextPath();
+        String reqServpath = request.getServletPath();
+        String reqPath = request.getPathInfo();
 
-        if (request.getRequestURI().contains("logout")) {
-            session.invalidate();
-            response.sendRedirect(request.getContextPath());
-        } else {
+        if (auth == null) {
             session.setAttribute("ID", session.getId());
             session.setAttribute("User", request.getRemoteUser());
             session.setAttribute("isAuthenticated", true);
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        } else {
+            /* URL Redirection */
+            switch (reqServpath + reqPath) {
+                case "/admin/logout":
+                    session.invalidate();
+                    response.sendRedirect(reqCtxt);
+                    break;
+                default:
+                    response.sendRedirect(reqCtxt + reqServpath + reqPath);
+            }
         }
 
     }

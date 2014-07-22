@@ -49,3 +49,21 @@ main section {
 borderLefto{
     border-left: 1px dotted #444;
 }
+.center{
+  text-align: center;   
+}
+.left {
+    float:left;
+}
+.right {
+    float:right;
+}
+.clear{
+    clear: both;
+}
+hr {
+    margin:0;
+    margin-bottom: 16px;
+    border-style: inset;
+    border-width: 1px;
+}

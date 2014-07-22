@@ -28,7 +28,7 @@
         <meta http-equiv="Cache-Control" content="no-store,no-cache,must-revalidate"> 
         <meta http-equiv="Pragma" content="no-cache"> 
         <meta http-equiv="Expires" content="-1"> 
-        
+
         <c:choose>
             <c:when test="${sessionScope.isAuthenticated}">
                 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/header-admin.css"> 
@@ -59,10 +59,10 @@
                         <div>                       
                             <div class="adminMenu">
                                 <ul>
-                                    <h4>Bilder</h4>
-                                    <a href="${pageContext.servletContext.contextPath}/admin/upload"><li>hochladen</li></a>
-                                    <a href="#"><li>updaten</li></a>
-                                    <a href="#"><li>durchsuchen</li></a>
+                                    <h4>Bilder verwalten</h4>
+                                    <a href="${pageContext.servletContext.contextPath}/admin/gallery"> <li>Gallery bearbeiten</li></a>
+                                    <a href="${pageContext.servletContext.contextPath}/admin/category"><li>Kategorien bearbeiten</li></a>
+                                    <a href="${pageContext.servletContext.contextPath}/admin/upload">  <li>Bilder hochladen</li></a>
                                 </ul>
                                 <ul>
                                     <h4>Article</h4>

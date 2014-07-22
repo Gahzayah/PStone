@@ -16,7 +16,8 @@ Task: FileUpload Form
 
 /* -- Input */
 input {
-    margin: 1.4em 0.3em;
+    margin: 0 0.3em;
+    margin-bottom: 0.5em;
     height: 2em;
     padding: 0 0.5em;
     font-weight: bold;
@@ -30,6 +31,16 @@ textarea {
     border: 1px solid #999;
     display: block;  
     resize: none;
+}
+
+label{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0.3em;
+}
+
+select{
+   padding:0; 
 }
 
 input[type="button"], input[type="submit"], input[type="reset"] {

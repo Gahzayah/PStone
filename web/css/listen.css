@@ -43,17 +43,18 @@ table {
 td, th  { 
     vertical-align: top; 
     margin:0;
-    padding: 0;
+    padding: 5px;
     text-align:left; 
 }
 td + td, th + th {
     border-left:1px solid #c2c2c2}
 th, tr td  {
     border-bottom:1px solid #c2c2c2; 
+    font-size: 14px;
 }
 
 thead{
-    background-color:#deffff;
+    background-color: #EEEEEE;
     text-transform:uppercase;
     font-size:0.875em;
     color:#292929
@@ -86,9 +87,10 @@ tfoot td:last-child {
 }
 
 select {
-    margin:1em 0.3em;
+    margin: 0 0.3em;
+    margin-bottom: 0.5em;
     height: 2em;
-    padding: 0 0.5em;
+    padding: 0 0.15em;
     font-weight: bold;
     border: 1px solid #999; 
     display: block;

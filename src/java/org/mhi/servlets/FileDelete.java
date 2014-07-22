@@ -3,22 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.mhi.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.mhi.persistence.ImgService;
 
 /**
  *
  * @author MaHi
  */
-@WebServlet(name = "FileDelete", urlPatterns = {"/delete"})
 public class FileDelete extends HttpServlet {
 
     /**
@@ -32,18 +29,27 @@ public class FileDelete extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FileDelete</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FileDelete at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String id = request.getParameter("id");
+
+        ImgService service = new ImgService();
+        if (id != null) {
+            String reqCtxt = request.getContextPath();
+            String reqServpath = request.getServletPath();
+            String reqPath = request.getPathInfo();
+
+            /* URL Redirection */
+            if (reqServpath.contains("gallery")) {
+
+                service.removeGallery(service.getGalleryByID(Long.valueOf(id)));
+                response.sendRedirect(reqCtxt+"/admin/gallery");
+            }
+            if (reqServpath.contains("category")) {
+                service.removeCategory(service.getCategoryByID(Long.valueOf(id)));
+                response.sendRedirect(reqCtxt+"/admin/category");
+            }
+
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -13,7 +13,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,14 +33,14 @@ public class ImgCat implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long imgCatID;  
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Images> images = new ArrayList() ;  
- //   @ManyToOne
- //   private ImgGallery gallery;
+    @ManyToOne
+    private ImgGallery gallery;
     private String name;
     private String description;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timeStmp;
+    private Date timeStmp = new Date();
     
     public Long getImgCatID() {
         return imgCatID;
@@ -64,14 +66,14 @@ public class ImgCat implements Serializable {
         this.name = name;
     }
 
-/*    public ImgGallery getGallery() {
+    public ImgGallery getGallery() {
         return gallery;
     }
 
     public void setGallery(ImgGallery gallery) {
         this.gallery = gallery;
     }
- */   
+    
     public String getDescription() {
         return description;
     }

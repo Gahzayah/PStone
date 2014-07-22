@@ -6,15 +6,12 @@
 package org.mhi.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
@@ -22,8 +19,6 @@ import org.mhi.persistence.DBUtil;
 import org.mhi.persistence.Images;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgService;
-
-@WebServlet(name = "FileUpload", urlPatterns = {"/admin/formupload"})
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -65,9 +60,12 @@ public class FileUpload extends HttpServlet {
                 ImgCat cat = service.getCategoryByID(Long.valueOf(result[0]));
                 img.setCategory(cat);
             }
+            if(service.getImageCategories()==null){
+                img.setThumbCat(1);
+            }else{
+                img.setThumbCat(0); 
+            }
 
-
-//            img.setCategory("Kategorie 1");
             try {
                 em.getTransaction().begin();
                 // persist object - add to entity manager

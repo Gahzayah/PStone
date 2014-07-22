@@ -20,6 +20,10 @@
         <servlet-name>FileDelete</servlet-name>
         <servlet-class>org.mhi.servlets.FileDelete</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FileUpload</servlet-name>
+        <servlet-class>org.mhi.servlets.FileUpload</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FileUpdate</servlet-name>
         <url-pattern>/admin/update</url-pattern>
@@ -34,7 +38,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
-        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FileDelete</servlet-name>
@@ -43,9 +47,13 @@
         <url-pattern>/admin/category/delete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FileUpload</servlet-name>
+        <servlet-name>Images (add)</servlet-name>
         <url-pattern>/admin/upload</url-pattern>
         <url-pattern>/admin/category/upload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUpload</servlet-name>
+        <url-pattern>/admin/images/upload</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
@@ -61,7 +69,7 @@
         <servlet-class>org.mhi.servlets.FileUpdate</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FileUpload</servlet-name>
+        <servlet-name>Images (add)</servlet-name>
         <jsp-file>/admin/uploadform.jsp</jsp-file>
     </servlet>
     <!-- Security Configuration -->

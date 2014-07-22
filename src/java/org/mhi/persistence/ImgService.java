@@ -18,6 +18,7 @@ public class ImgService {
 
     private List<ImgCat> imgCat = null;
     private List<ImgGallery> imgGallery = null;
+    private Images catThumbnail = null;
 
     /**
      * Category List
@@ -29,9 +30,8 @@ public class ImgService {
         TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q", ImgCat.class);
         imgCat = query.getResultList();
         em.close();
-
+        
         return imgCat;
-
     }
 
     /**
@@ -46,11 +46,22 @@ public class ImgService {
         em.close();
 
         return categorie;
-
     }
 
     public void setImgGallery(List<ImgGallery> imgGallery) {
         this.imgGallery = imgGallery;
+    }
+
+    public Images getCatThumbnail(String yyy) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        String qString = "Select q from Images q where q.thumbCat = 1" ;
+        TypedQuery<Images> img = em.createQuery(qString,Images.class);
+        img.setParameter("cID", yyy);
+        return catThumbnail;
+    }
+
+    public void setCatThumbnail(Images catThumbnail) {
+        this.catThumbnail = catThumbnail;
     }
 
     /**

@@ -32,7 +32,7 @@
             <hr/>
             <form id="upload" enctype="multipart/form-data" method="POST"> 
                 <%-- Image Categorie auswählen --%>
-                <select>
+                <select name="category">
                     <c:forEach items="${service.imageCategories}" var="cat">
                         <option value="${cat.imgCatID}">${cat.name}</option>
                     </c:forEach>

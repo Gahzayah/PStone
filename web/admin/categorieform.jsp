@@ -33,6 +33,7 @@
             <c:choose>
                 <c:when test="${not empty service.imageCategories}">
                     <p class="intro">Achtung! Beim löschen einer Kategorie werden alle zugeordneten Bilder gelöscht.</p>
+                    <hr/>
                     <table class="output">
                         <thead>
                             <tr>
@@ -57,19 +58,19 @@
                     <p>Keine Kategorie vorhanden.</p>
                 </c:otherwise>
             </c:choose>
-
+                      <p>&nbsp;</p>
             <h3>Neue Kategorie anlegen</h3>
             <hr/>
             <form action="${pageContext.servletContext.contextPath}/admin/update" method="POST">
                 <select name="gallery">
-                    <option selected>Gallery</option>
+                    <option selected>Gallery wählen</option>
                     <c:forEach items="${service.imageGalleries}" var="gal">
                         <option value="${gal.imgGalleryID}">${gal.name}</option>
                     </c:forEach>
                 </select>
                 <input type="text" size="20" name="newCategory" placeholder="Neue Kategorie">
                 <input type="text" size="55" name="newCDescription" placeholder="Beschreibung">
-                <input type="submit" name="commit" value="hinzufügen">
+                <input type="submit" value="speichern">     
             </form>
         </main> 
     </jsp:body>

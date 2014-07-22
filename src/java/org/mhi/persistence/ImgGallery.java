@@ -21,6 +21,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+import org.eclipse.persistence.annotations.PrivateOwned;
 
 
 /**
@@ -32,7 +34,8 @@ public class ImgGallery implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long imgGalleryID;
-    @OneToMany(mappedBy = "gallery",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "gallery",orphanRemoval=true )
     private List<ImgCat> category = new ArrayList();
     private String name;
     private String description;

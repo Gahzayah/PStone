@@ -25,10 +25,6 @@
         <url-pattern>/admin/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FileUpload</servlet-name>
-        <url-pattern>/admin/upload</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Category (edit)</servlet-name>
         <url-pattern>/admin/category</url-pattern>
     </servlet-mapping>
@@ -45,6 +41,11 @@
         <url-pattern>/admin/delete</url-pattern>
         <url-pattern>/admin/gallery/delete</url-pattern>
         <url-pattern>/admin/category/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUpload</servlet-name>
+        <url-pattern>/admin/upload</url-pattern>
+        <url-pattern>/admin/category/upload</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

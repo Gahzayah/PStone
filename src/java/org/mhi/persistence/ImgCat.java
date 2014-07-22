@@ -23,6 +23,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+import org.eclipse.persistence.annotations.PrivateOwned;
 
 /**
  *
@@ -33,7 +35,7 @@ public class ImgCat implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long imgCatID;  
-    @OneToMany(mappedBy = "category",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", orphanRemoval=true )
     private List<Images> images = new ArrayList() ;  
     @ManyToOne
     private ImgGallery gallery;

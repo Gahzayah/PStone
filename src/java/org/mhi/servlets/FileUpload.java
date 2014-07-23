@@ -46,36 +46,23 @@ public class FileUpload extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileUploadException {
         response.setContentType("text/html;charset=UTF-8");
-//       final String reqOfElement = "files";
+        
         FileHandler fh = new FileHandler(request);
 
-        Boolean multipart = ServletFileUpload.isMultipartContent(request);
-
-        Part filePart = request.getPart("files");
-        
-        InputStream file = fh.getFile("files");
-        byte[] blob = IOUtils.toByteArray(file);
-
-        String imageName = fh.getParameter("name");
-        String imageDesc = fh.getParameter("desc");
-        String cType = fh.getContentType();
-        String fileName = fh.getFileName();
-        long fileSize = fh.getFileSize();
-
-        if (multipart) {
+        if (fh.isMultipart()) {
 
             ImgService service = new ImgService();
-            Images img = new Images();;
+            Images img = new Images();
             EntityManager em = DBUtil.getEnitityManagerFactory().createEntityManager();
 
             String[] result = request.getParameterValues("category");
 
-            img.setFileName(fileName);
-            img.setName(imageName);
-            img.setDescription(imageDesc);
-            img.setFileBlob(blob);
-            img.setFileSize("" + fileSize);
-            img.setcTyp(cType);
+            img.setFileName(fh.getFileName());
+            img.setName(fh.getParameter("name"));
+            img.setDescription(fh.getParameter("desc"));
+            img.setFileBlob(IOUtils.toByteArray(fh.getFile("files")));
+            img.setFileSize("" + fh.getFileSize());
+            img.setcTyp(fh.getContentType());
 
             if (result != null) {
                 ImgCat cat = service.getCategoryByID(Long.valueOf(result[0]));

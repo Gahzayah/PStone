@@ -34,6 +34,10 @@ public class FileHandler {
         this.request = req;
         items = upload.parseRequest(request);
     }
+    public boolean isMultipart(){
+        boolean result = ServletFileUpload.isMultipartContent(request);
+        return result;       
+    }
 
     public String getParameter(String field_name) {
         String result = null;

@@ -6,6 +6,10 @@
 package org.mhi.servlets;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,9 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.mhi.persistence.DBUtil;
+import org.mhi.persistence.FileHandler;
 import org.mhi.persistence.Images;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgService;
@@ -33,37 +41,45 @@ public class FileUpload extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws org.apache.commons.fileupload.FileUploadException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, FileUploadException {
         response.setContentType("text/html;charset=UTF-8");
+//       final String reqOfElement = "files";
+        FileHandler fh = new FileHandler(request);
 
-        final String reqOfElement = "files";
-        Images img = null;
         Boolean multipart = ServletFileUpload.isMultipartContent(request);
 
-        if (multipart) {
-            EntityManager em = DBUtil.getEnitityManagerFactory().createEntityManager();
-            Part filePart = request.getPart(reqOfElement);
+        Part filePart = request.getPart("files");
+        
+        InputStream file = fh.getFile("files");
+        byte[] blob = IOUtils.toByteArray(file);
 
-            img = new Images();
-            img.setFileName(filePart.getSubmittedFileName());
-            img.setName(request.getParameter("name"));
-            img.setDescription(request.getParameter("desc"));
-            img.setFile(IOUtils.toByteArray(filePart.getInputStream()));
-            img.setFilesize("" + filePart.getSize());
-            img.setcTyp(filePart.getContentType());
+        String imageName = fh.getParameter("name");
+        String imageDesc = fh.getParameter("desc");
+        String cType = fh.getContentType();
+        String fileName = fh.getFileName();
+        long fileSize = fh.getFileSize();
+
+        if (multipart) {
 
             ImgService service = new ImgService();
+            Images img = new Images();;
+            EntityManager em = DBUtil.getEnitityManagerFactory().createEntityManager();
+
             String[] result = request.getParameterValues("category");
+
+            img.setFileName(fileName);
+            img.setName(imageName);
+            img.setDescription(imageDesc);
+            img.setFileBlob(blob);
+            img.setFileSize("" + fileSize);
+            img.setcTyp(cType);
+
             if (result != null) {
                 ImgCat cat = service.getCategoryByID(Long.valueOf(result[0]));
                 img.setCategory(cat);
-            }
-            if(service.getImageCategories()==null){
-                img.setThumbCat(1);
-            }else{
-                img.setThumbCat(0); 
             }
 
             try {
@@ -80,7 +96,6 @@ public class FileUpload extends HttpServlet {
             }
         }
 
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,11 +106,16 @@ public class FileUpload extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws org.apache.commons.fileupload.FileUploadException
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (FileUploadException ex) {
+            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -109,7 +129,11 @@ public class FileUpload extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (FileUploadException ex) {
+            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

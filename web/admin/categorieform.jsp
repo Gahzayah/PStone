@@ -58,10 +58,10 @@
                     <p>Keine Kategorie vorhanden.</p>
                 </c:otherwise>
             </c:choose>
-                      <p>&nbsp;</p>
+            <p>&nbsp;</p>
             <h3>Neue Kategorie anlegen</h3>
             <hr/>
-            <form action="${pageContext.servletContext.contextPath}/admin/update" method="POST">
+            <form id="upload" action="${pageContext.servletContext.contextPath}/admin/update" method="POST">
                 <select name="gallery">
                     <option selected>Gallery wählen</option>
                     <c:forEach items="${service.imageGalleries}" var="gal">
@@ -70,7 +70,14 @@
                 </select>
                 <input type="text" size="20" name="newCategory" placeholder="Neue Kategorie">
                 <input type="text" size="55" name="newCDescription" placeholder="Beschreibung">
-                <input type="submit" value="speichern">     
+                <input type="file" size="20" name="files">
+                <input type="button" name="add" value="Bild"> 
+                <div id="prevUpload">
+                    <!-- The file uploads will be shown here -->
+
+                </div>
+                <div id="uploadMessage"></div>
+                <input type="submit" value="speichern">  
             </form>
         </main> 
     </jsp:body>

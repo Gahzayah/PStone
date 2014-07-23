@@ -15,7 +15,6 @@ $(function() {
     var count = 0;
 
     $(form).fileupload({
-        url: 'http://localhost:8080/psg/admin/images/upload',
         async: true,
         type: 'POST',
         dataType: 'json',

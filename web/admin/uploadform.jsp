@@ -30,7 +30,7 @@
         <main>
             <h2>Bilder hochladen</h2>
             <hr/>
-            <form id="upload" enctype="multipart/form-data" method="POST"> 
+            <form id="upload" action="${pageContext.servletContext.contextPath}/admin/images/upload" enctype="multipart/form-data" method="POST"> 
                 <%-- Image Categorie auswählen --%>
                 <select name="category">
                     <c:forEach items="${service.imageCategories}" var="cat">

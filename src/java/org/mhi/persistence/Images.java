@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -27,6 +28,7 @@ public class Images implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long imageID;
     @ManyToOne
+    @JoinColumn(name="CATEGORY_IMGCATID")
     private ImgCat category;     
     private String name = null;
     private String fileName = null;
@@ -34,19 +36,35 @@ public class Images implements Serializable {
     private String cTyp = null; 
     private String description = null;
     private byte[] fileBlob = null;
-    private int thumbCat = 0;
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStmp = new Date();
   
     private static final long serialVersionUID = 1L;
-    
-    public Long getId() {
+
+    public Long getImageID() {
         return imageID;
     }
 
-    public void setId(Long id) {
-        this.imageID = id;
+    public void setImageID(Long imageID) {
+        this.imageID = imageID;
     }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public byte[] getFileBlob() {
+        return fileBlob;
+    }
+
+    public void setFileBlob(byte[] fileBlob) {
+        this.fileBlob = fileBlob;
+    }
+    
     
     public String getName() {
         return name;
@@ -54,14 +72,6 @@ public class Images implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFilesize() {
-        return fileSize;
-    }
-
-    public void setFilesize(String filesize) {
-        this.fileSize = filesize;
     }
 
     public String getcTyp() {
@@ -88,14 +98,6 @@ public class Images implements Serializable {
         this.category = category;
     }
 
-    public byte[] getFile() {
-        return fileBlob;
-    }
-
-    public void setFile(byte[] file) {
-        this.fileBlob = file;
-    }
-
     public Date getTimeStmp() {
         return timeStmp;
     }
@@ -111,16 +113,6 @@ public class Images implements Serializable {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
-
-
-    public int getThumbCat() {
-        return thumbCat;
-    }
-
-    public void setThumbCat(int thumbCat) {
-        this.thumbCat = thumbCat;
-    }
-    
     
     
     @Override

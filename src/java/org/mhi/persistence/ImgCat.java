@@ -37,6 +37,7 @@ public class ImgCat implements Serializable {
     private ImgGallery gallery;
     private String name;
     private String description;
+    private byte[] fileBlob = null;
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStmp = new Date();
     
@@ -50,6 +51,14 @@ public class ImgCat implements Serializable {
 
     public List<Images> getImages() {
         return images;
+    }
+
+    public byte[] getFileBlob() {
+        return fileBlob;
+    }
+
+    public void setFileBlob(byte[] fileBlob) {
+        this.fileBlob = fileBlob;
     }
 
     public void setImages(List<Images> images) {

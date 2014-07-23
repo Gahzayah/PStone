@@ -52,11 +52,11 @@ public class ImgService {
         this.imgGallery = imgGallery;
     }
 
-    public Images getCatThumbnail(String yyy) {
+    public Images getCatThumbnail(String catID) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        String qString = "Select q from Images q where q.thumbCat = 1" ;
+        String qString = "Select q from Images q where q.thumbCat = 1 and q.category.imgCatID = :id" ;
         TypedQuery<Images> img = em.createQuery(qString,Images.class);
-        img.setParameter("cID", yyy);
+        img.setParameter("id", catID);
         return catThumbnail;
     }
 
@@ -77,8 +77,8 @@ public class ImgService {
         ImgCat cat = new ImgCat();
         cat.setName(name);
         cat.setDescription(desc);
+        //byte[] thumbnail
         cat.setGallery(gal);
-        //cat.setGallery(gallery);
 
         try {
             em.getTransaction().begin();

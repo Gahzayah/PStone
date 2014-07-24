@@ -7,10 +7,14 @@ package org.mhi.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgService;
 
 /**
@@ -32,8 +36,12 @@ public class GetCategory extends HttpServlet {
         
         if (request.getParameter("id") != null) {
             ImgService service = new ImgService();
-            service.setCategoriesByID(request.getParameter("id"));
-            response.sendRedirect(request.getServletContext().getContextPath() + "/gallery");
+
+            List<ImgCat> list = service.getCategoriesByID(request.getParameter("id"));
+            request.setAttribute("CatByGalID", list);
+            ServletContext sc = this.getServletContext();
+            RequestDispatcher rd = sc.getRequestDispatcher("/gallery");
+            rd.forward(request, response);
         }
     }
 

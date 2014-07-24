@@ -9,12 +9,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="service" scope="page" class="org.mhi.persistence.ImgService" />
 
-
 <t:genericPage titlepage="Title der Page">
     <jsp:attribute name="head">
-        <link rel="stylesheet" type="text/css" href="css/main.css"> 
-        <link rel="stylesheet" type="text/css" href="css/typografie.css"> 
-        <link rel="stylesheet" type="text/css" href="css/gallery.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/main.css"> 
+        <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/typografie.css"> 
+        <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/gallery.css">
     </jsp:attribute>
     <jsp:body>
         <main>
@@ -23,7 +22,7 @@
                     <c:choose>
                         <c:when test="${not empty service.imageGalleries}">
                             <c:forEach items="${service.imageGalleries}" var="gal">
-                                <a href="#" onclick="${service.setCategoriesByID(gal.imgGalleryID)}"><h3>${gal.name}</h3></a>
+                                <a href="${pageContext.servletContext.contextPath}/gallery/category?id=${gal.imgGalleryID}"><h3>${gal.name}</h3></a>
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
@@ -34,8 +33,8 @@
             </section>
             <section class='pix600 borderLefto'>
                 <c:choose>
-                    <c:when test="${not empty service.categoriesbyid}">
-                        <c:forEach items="${service.categoriesbyid}" var="cat">
+                    <c:when test="${not empty requestScope.CatByGalID}">
+                        <c:forEach items="${requestScope.CatByGalID}" var="cat">
                             <div class="gallery">
                                 <div class="pix95">
                                     <img src="${pageContext.servletContext.contextPath}/gallery/image?id=${cat.imgCatID}" alt="${cat.name}" title="${cat.description}"/>

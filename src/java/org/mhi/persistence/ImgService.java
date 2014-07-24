@@ -21,17 +21,6 @@ public class ImgService {
     private List<ImgGallery> imgGallery = null;
     private Images catThumbnail = null;
     private String byteStringArray = null;
-    private String name = null;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    
 
     public String getByteStringArray() {
         return byteStringArray;
@@ -69,28 +58,15 @@ public class ImgService {
         return categorie;
     }
 
-    public List<ImgCat> getCategoriesbyid() {
-        return categoriesbyid;
-    }
-
-    public void setCategoriesbyid(List<ImgCat> categoriesbyid) {
-        this.categoriesbyid = categoriesbyid;
-    }
-
-    public void setCategoriesByID(String parameter) {
+    public List<ImgCat> getCategoriesByID(String parameter) {
+        List<ImgCat> result = null;
         EntityManager em = getEnitityManagerFactory().createEntityManager();
+        @SuppressWarnings("JPQLValidation")
         TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q where q.gallery.imgGalleryID = " + parameter, ImgCat.class);
-   //     query.setParameter("id", parameter);
-        categoriesbyid = query.getResultList();
+        //     query.setParameter("id", parameter);
+        result = query.getResultList();
         em.close();
-    }
-
-    public void setImgGallery(List<ImgGallery> imgGallery) {
-        this.imgGallery = imgGallery;
-    }
-
-    public void setCatThumbnail(Images catThumbnail) {
-        this.catThumbnail = catThumbnail;
+        return result;
     }
 
     /**
@@ -159,11 +135,6 @@ public class ImgService {
         em.close();
 
         return gal;
-
-    }
-
-    public void setImgCat(List<ImgCat> imgCat) {
-        this.imgCat = imgCat;
     }
 
     /**

@@ -18,10 +18,6 @@ import javax.imageio.ImageIO;
  */
 public class ImageResizer {
 
-    private static int widthX = 0;
-    private static int heightY = 0;
-    private final static int IMAGE_SIZE_PX = 50;
-
     /**
      * Resizes an image to a absolute width and height (the image may not be proportional)
      *
@@ -36,9 +32,6 @@ public class ImageResizer {
         // reads input image
         InputStream in = new ByteArrayInputStream(inc);
         BufferedImage image = ImageIO.read(in);
-        // read sizes of image
-        widthX = image.getWidth();
-        heightY = image.getHeight();
         // creates output image
         BufferedImage outputImage = new BufferedImage(scaleWidth, scaleHeight, image.getType());
 
@@ -56,13 +49,4 @@ public class ImageResizer {
 
         return result;
     }
-
-    public int getWidthX() {
-        return widthX;
-    }
-
-    public int getHeightY() {
-        return heightY;
-    }
-
 }

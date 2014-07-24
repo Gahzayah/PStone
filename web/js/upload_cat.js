@@ -1,7 +1,7 @@
 var form = '#upload';                                // Define the FORM-Selector
 var btnAdd = "input[name='add']";                      // Define the ADD-Button
 var btnFileType = "input[name='files']";                    // Define the FILE-TYPE-Button
-var btnUpload = "input[name='upload']";                   // Define the UPLOAD-Button
+var btnUpload = "input[name='upload']";                     // Define the UPLOAD-Button
 var selectedOutput = '#upload #prevUpload';                    // Define the Output of <ul>
 var filenameLength = 35;
 var data_ = null;
@@ -16,16 +16,14 @@ $(function() {
 
     $(form).fileupload({
         async: true,
-        type: 'POST',
         dataType: 'json',
-//        processData: false, // Don't process the files
+        processData: false, // Don't process the files
 
         start: function(e) {
             $(btnUpload).unbind('click');       // Unbind Click Event 
         },
         add: function(e, data) {
             // Form Is not submitted in Chrome and IE.. for firefox it submits the from to same url that i am in.
-
             var filetype = data.files[0].type.split('/');
             var filename = checkFileName(data.files[0].name, filetype, filenameLength);
             var filesize = formatFileSize(data.files[0].size);
@@ -37,15 +35,8 @@ $(function() {
 
             // Preview Images and Information
             var tpl = $('<div class="beforeUpload">\n\
-                            <div class="image"><img id="target'+count+'" src="#"></div>\n\
-                            <input type="text" name="name" placeholder="Bildname"/>\n\
-                            <input type="text" name="desc" placeholder="Short Description"/>\n\
-                            <span class="filename" title="' + data.files[0].name + '"></span>\n\
-                            <span class="closebtn"><i class="fa fa-times-circle"></i></span>\n\
+                            <div class="image"><img id="target'+count+'" src="#" alt="'+data.files[0].name+'"></div>\n\
                         </div>');
-
-            // Append the file name and file size
-            tpl.find('.filename').text(filename + " ("+filesize +" , "+count+")");
             // Add the HTML to the DIV element
             tpl.appendTo(selectedOutput);
             
@@ -54,29 +45,20 @@ $(function() {
                 $("#target"+count).attr('src', e.target.result);
             };
             reader.readAsDataURL(data.files[0]);
-
-            
+            // Wenn nicht benutzt wird application/octect-stream verschickt
             $(btnUpload).click(function() {
                 data.submit();
             });
 
         },
         success: function(data) {
-
             console.log(data);
-            // Upload-Button hidden and clear Information
-            $(btnUpload).prop('type', 'hidden');
             $(selectedOutput).empty();
-            // If Response successfully print out Image Name
-            $.each(data, function(key, value) {
-                var message = $('<p style="color:green">' + value + ' wurde erfolgreich hochgeladen !</p>');
-                message.appendTo('#uploadMessage');
-            });
+
         },
         error: function(data) {
             console.log(data);
             alert("Error : " + data.statusText + " Status: " + data.status);
-
         }
     });
 });

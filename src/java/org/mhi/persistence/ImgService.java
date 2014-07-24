@@ -17,8 +17,29 @@ import static org.mhi.persistence.DBUtil.getEnitityManagerFactory;
 public class ImgService {
 
     private List<ImgCat> imgCat = null;
+    private List<ImgCat> categoriesbyid = null;
     private List<ImgGallery> imgGallery = null;
     private Images catThumbnail = null;
+    private String byteStringArray = null;
+    private String name = null;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
+
+    public String getByteStringArray() {
+        return byteStringArray;
+    }
+
+    public void setByteStringArray(String byteStringArray) {
+        this.byteStringArray = byteStringArray;
+    }
 
     /**
      * Category List
@@ -30,7 +51,7 @@ public class ImgService {
         TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q", ImgCat.class);
         imgCat = query.getResultList();
         em.close();
-        
+
         return imgCat;
     }
 
@@ -48,16 +69,24 @@ public class ImgService {
         return categorie;
     }
 
-    public void setImgGallery(List<ImgGallery> imgGallery) {
-        this.imgGallery = imgGallery;
+    public List<ImgCat> getCategoriesbyid() {
+        return categoriesbyid;
     }
 
-    public Images getCatThumbnail(String catID) {
+    public void setCategoriesbyid(List<ImgCat> categoriesbyid) {
+        this.categoriesbyid = categoriesbyid;
+    }
+
+    public void setCategoriesByID(String parameter) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        String qString = "Select q from Images q where q.thumbCat = 1 and q.category.imgCatID = :id" ;
-        TypedQuery<Images> img = em.createQuery(qString,Images.class);
-        img.setParameter("id", catID);
-        return catThumbnail;
+        TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q where q.gallery.imgGalleryID = " + parameter, ImgCat.class);
+   //     query.setParameter("id", parameter);
+        categoriesbyid = query.getResultList();
+        em.close();
+    }
+
+    public void setImgGallery(List<ImgGallery> imgGallery) {
+        this.imgGallery = imgGallery;
     }
 
     public void setCatThumbnail(Images catThumbnail) {
@@ -67,24 +96,14 @@ public class ImgService {
     /**
      * New Category
      *
-     * @param name
-     * @param desc
-     * @param gal
+     * @param cat
      */
-    public void newCategory(String name, String desc, ImgGallery gal) {
+    public void newCategory(ImgCat cat) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-
-        ImgCat cat = new ImgCat();
-        cat.setName(name);
-        cat.setDescription(desc);
-        //byte[] thumbnail
-        cat.setGallery(gal);
 
         try {
             em.getTransaction().begin();
-            // persist object - add to entity manager
             em.persist(cat);
-            // flush em - save to DB
             em.flush();
         } catch (Exception ex) {
             em.getTransaction().rollback();
@@ -101,9 +120,7 @@ public class ImgService {
 
         try {
             em.getTransaction().begin();
-            // persist object - add to entity manager
             em.remove(em.merge(cat));
-            // flush em - save to DB
             em.flush();
         } catch (Exception ex) {
             em.getTransaction().rollback();
@@ -152,15 +169,10 @@ public class ImgService {
     /**
      * New Gallery
      *
-     * @param name
-     * @param desc
+     * @param gal
      */
-    public void newGallery(String name, String desc) {
+    public void newGallery(ImgGallery gal) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-
-        ImgGallery gal = new ImgGallery();
-        gal.setName(name);
-        gal.setDescription(desc);
 
         try {
             em.getTransaction().begin();
@@ -177,8 +189,8 @@ public class ImgService {
         }
 
     }
-    
-        public void removeGallery(ImgGallery gal) {
+
+    public void removeGallery(ImgGallery gal) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
 
         try {
@@ -195,6 +207,20 @@ public class ImgService {
 
         }
 
+    }
+
+    public void insertImage(Images img) {
+        EntityManager em = DBUtil.getEnitityManagerFactory().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(img);
+            em.flush();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            System.out.println("SQL-Exception: Transaction failed." + ex);
+        } finally {
+            em.close();
+        }
     }
 
 }

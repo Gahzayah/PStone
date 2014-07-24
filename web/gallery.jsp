@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="service" scope="page" class="org.mhi.persistence.ImgService" />
+
 
 <t:genericPage titlepage="Title der Page">
     <jsp:attribute name="head">
@@ -17,61 +20,45 @@
         <main>
             <section class='pix200'>
                 <ul>
-                    <h3>Objekte</h3>
-                    <h3>Workshops</h3>
+                    <c:choose>
+                        <c:when test="${not empty service.imageGalleries}">
+                            <c:forEach items="${service.imageGalleries}" var="gal">
+                                <a href="#" onclick="${service.setCategoriesByID(gal.imgGalleryID)}"><h3>${gal.name}</h3></a>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <h3>(Leer)</h3>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </section>
             <section class='pix600 borderLefto'>
-                <div class="gallery">
-                    <div class="pix95">
-                        <img src="${pageContext.servletContext.contextPath}/images/gridrotator/1.jpg" alt="bild.bild" title="Titel für diesen Qua"/>
-                    </div>
-                    <div class="pix200 galleryinfo">
-                        <h4>Gallery</h4>
-                        <p >15 Photos</p>
-                        <p >2x angesehen</p>
-                    </div>
-                </div>
-                <div class="gallery">
-                    <div class="pix95">
-                        <img src="${pageContext.servletContext.contextPath}/images/gridrotator/2.jpg" alt="bild.bild" title="Titel für diesen Qua"/>
-                    </div>
-                    <div class="pix200 galleryinfo">
-                        <h4>Galleryname</h4>
-                        <p>13 Photos</p>
-                        <p>12x views</p>
-                    </div>
-                </div>   
-                <div class="gallery">
-                    <div class="pix95">
-                        <img src="${pageContext.servletContext.contextPath}/images/gridrotator/3.jpg" alt="bild.bild" title="Titel für diesen Qua"/>
-                    </div>
-                    <div class="pix200 galleryinfo">
-                        <h4>Galleryname</h4>
-                        <p>13 Photos</p>
-                        <p>12x views</p>
-                    </div>
-                </div> 
-                <div class="gallery">
-                    <div class="pix95">
-                        <img src="${pageContext.servletContext.contextPath}/images/gridrotator/4.jpg" alt="bild.bild" title="Titel für diesen Qua"/>
-                    </div>
-                    <div class="pix200 galleryinfo">
-                        <h4>Galleryname</h4>
-                        <p>13 Photos</p>
-                        <p>12x views</p>
-                    </div>
-                </div> 
-                <div class="gallery">
-                    <div class="pix95">
-                        <img src="${pageContext.servletContext.contextPath}/images/gridrotator/5.jpg" alt="bild.bild" title="Titel für diesen Qua"/>
-                    </div>
-                    <div class="pix200 galleryinfo">
-                        <h4>Galleryname</h4>
-                        <p>13 Photos</p>
-                        <p>12x views</p>
-                    </div>
-                </div> 
+                <c:choose>
+                    <c:when test="${not empty service.categoriesbyid}">
+                        <c:forEach items="${service.categoriesbyid}" var="cat">
+                            <div class="gallery">
+                                <div class="pix95">
+                                    <img src="${pageContext.servletContext.contextPath}/gallery/image?id=${cat.imgCatID}" alt="${cat.name}" title="${cat.description}"/>
+                                </div>
+                                <div class="pix200 galleryinfo">
+                                    <a href="#"><h4>${cat.name}</h4></a>
+                                    <p >15 Photos</p>
+                                    <p >2x angesehen</p>
+                                </div>
+                            </div>
+                        </c:forEach> 
+                    </c:when>
+                    <c:otherwise>
+                        <div class="gallery">
+                            <div class="pix95">
+                                <img src="${pageContext.servletContext.contextPath}/images/gridrotator/1.jpg" alt="bild.bild" title="Titel für diesen Qua"/>
+                            </div>
+                            <div class="pix200 galleryinfo">
+                                <h4>Keine Category vorhanden</h4>
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>            
             </section>
         </main>  
     </jsp:body>

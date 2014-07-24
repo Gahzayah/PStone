@@ -3,11 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.mhi.persistence;
-
-
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import org.apache.tomcat.util.codec.binary.Base64;
 
 /**
  *
@@ -28,11 +26,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class ImgCat implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long imgCatID;  
-    @OneToMany(mappedBy = "category", orphanRemoval=true )
-    private List<Images> images = new ArrayList() ;  
+    private Long imgCatID;
+    @OneToMany(mappedBy = "category", orphanRemoval = true)
+    private List<Images> images = new ArrayList();
     @ManyToOne
     private ImgGallery gallery;
     private String name;
@@ -40,7 +39,7 @@ public class ImgCat implements Serializable {
     private byte[] fileBlob = null;
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStmp = new Date();
-    
+
     public Long getImgCatID() {
         return imgCatID;
     }
@@ -64,7 +63,7 @@ public class ImgCat implements Serializable {
     public void setImages(List<Images> images) {
         this.images = images;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -80,7 +79,7 @@ public class ImgCat implements Serializable {
     public void setGallery(ImgGallery gallery) {
         this.gallery = gallery;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -96,6 +95,5 @@ public class ImgCat implements Serializable {
     public void setTimeStmp(Date timestamp) {
         this.timeStmp = timestamp;
     }
-    
-    
+
 }

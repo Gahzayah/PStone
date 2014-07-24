@@ -24,11 +24,30 @@
         <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery.js" ></script>
         <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery-ui.js" ></script>
         <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery.fileupload.js"></script>
-        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/upload.js" ></script> 
+        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/upload_cat.js" ></script> 
 
     </jsp:attribute>  
     <jsp:body>
         <main>
+            <h3>Neue Kategorie anlegen</h3>
+            <hr/>
+            <form id="upload" action="${pageContext.servletContext.contextPath}/admin/category/create" enctype="multipart/form-data" method="POST">
+                <select name="gallery">
+                    <option selected>Gallery wählen</option>
+                    <c:forEach items="${service.imageGalleries}" var="gal">
+                        <option value="${gal.imgGalleryID}">${gal.name}</option>
+                    </c:forEach>
+                </select>
+                <input type="button" name="add" value="Bild hinzufügen">
+                <div id="prevUpload">
+                    <!-- The file uploads will be shown here -->
+                </div>
+                <div id="uploadMessage"></div>
+                <input type="file" name="files"/>
+                <input type="text" size="20" name="newCategory" placeholder="Neue Kategorie">
+                <input type="text" size="55" name="newDescription" placeholder="Beschreibung">
+                <input type="button" name="upload" value="speichern">  
+            </form>
             <h3>Übersicht aller Kategorien</h3>
             <c:choose>
                 <c:when test="${not empty service.imageCategories}">
@@ -39,15 +58,14 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Beschreibung</th>
-                                <th>Erstellt am</th>
                                 <th class="center">Löschen</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${service.imageCategories}" var="cat">
-                                <tr><td>${cat.name}</td>
+                                <tr>
+                                    <td>${cat.name}</td>
                                     <td>${cat.description}</td>
-                                    <td>${cat.timeStmp}</td>
                                     <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/category/delete?id=${cat.imgCatID}"><i class="fa fa-times-circle"/></a></td>
                                 </tr>
                             </c:forEach>
@@ -59,26 +77,7 @@
                 </c:otherwise>
             </c:choose>
             <p>&nbsp;</p>
-            <h3>Neue Kategorie anlegen</h3>
-            <hr/>
-            <form id="upload" action="${pageContext.servletContext.contextPath}/admin/update" method="POST">
-                <select name="gallery">
-                    <option selected>Gallery wählen</option>
-                    <c:forEach items="${service.imageGalleries}" var="gal">
-                        <option value="${gal.imgGalleryID}">${gal.name}</option>
-                    </c:forEach>
-                </select>
-                <input type="text" size="20" name="newCategory" placeholder="Neue Kategorie">
-                <input type="text" size="55" name="newCDescription" placeholder="Beschreibung">
-                <input type="file" size="20" name="files">
-                <input type="button" name="add" value="Bild"> 
-                <div id="prevUpload">
-                    <!-- The file uploads will be shown here -->
-
-                </div>
-                <div id="uploadMessage"></div>
-                <input type="submit" value="speichern">  
-            </form>
+            
         </main> 
     </jsp:body>
 </t:genericPage>

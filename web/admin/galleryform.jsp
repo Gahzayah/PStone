@@ -61,10 +61,10 @@
 
             <h3>Gallerie anlegen</h3>
             <hr/>
-            <form action="${pageContext.servletContext.contextPath}/admin/update" method="POST">
+            <form action="${pageContext.servletContext.contextPath}/admin/gallery/create" enctype="multipart/form-data" method="POST">
                 <input type="text" name="newGallery" placeholder="Neue Gallery" size="20">
-                <input type="text" name="newGDescription" placeholder="Beschreibung" size="55">
-                <input type="submit" name="commit" value="hinzufügen">
+                <input type="text" name="newDescription" placeholder="Beschreibung" size="55">
+                <input type="submit" name="commit" value="speichern">
             </form>
         </main> 
     </jsp:body>

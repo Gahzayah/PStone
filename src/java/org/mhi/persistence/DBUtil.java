@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.mhi.servlets.FileUpload;
+import org.mhi.servlets.ImageUpload;
 
 /**
  *
@@ -46,7 +46,7 @@ public class DBUtil {
             conn = DriverManager.getConnection("jdbc:mysql://www.brackwasser.ch:3306/d01a6a79?user=d01a6a79&password=_techadmin!");
 
         } catch (ClassNotFoundException e) {
-            Logger.getLogger(FileUpload.class
+            Logger.getLogger(ImageUpload.class
                     .getName()).log(Level.SEVERE, null, e);
         }
         return conn;

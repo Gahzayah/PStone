@@ -6,21 +6,18 @@
 package org.mhi.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.IOUtils;
-import org.mhi.persistence.ImgGallery;
 import org.mhi.persistence.ImgService;
 
 /**
  *
  * @author MaHi
  */
-public class FileUpdate extends HttpServlet {
+public class GetCategory extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,33 +29,15 @@ public class FileUpdate extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final String reqOfElement = "files";
- //       Boolean multipart = ServletFileUpload.isMultipartContent(request);
-
-        String c_category = request.getParameter("newCategory");
-        String g_gallery = request.getParameter("newGallery");
-        String c_description = request.getParameter("newCDescription");
-        String g_description = request.getParameter("newGDescription");
-        String[] s_id = request.getParameterValues("gallery");
-        Long id = null;
-
-        ImgService service = new ImgService();
-
-        if (c_category != null) {
-            id = Long.valueOf(s_id[0]);
-            ImgGallery gal = service.getGalleryByID(id);
-          
-            service.newCategory(c_category, c_description, gal);
-            response.sendRedirect(request.getServletContext().getContextPath() + "/admin/category");
-        } /* Update and create new Category */ 
-        else if (g_gallery != null) {
-            // Create
-            service.newGallery(g_gallery, g_description);
-            response.sendRedirect(request.getServletContext().getContextPath() + "/admin/gallery");
+        
+        if (request.getParameter("id") != null) {
+            ImgService service = new ImgService();
+            service.setCategoriesByID(request.getParameter("id"));
+            response.sendRedirect(request.getServletContext().getContextPath() + "/gallery");
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

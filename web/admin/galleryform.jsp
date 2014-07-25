@@ -7,9 +7,9 @@
 
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%-- Import Class to access via EL --%>
 <jsp:useBean id="service" scope="page" class="org.mhi.persistence.ImgService" />
 
@@ -30,6 +30,13 @@
     </jsp:attribute>  
     <jsp:body>
         <main>
+            <h3>Gallerie anlegen</h3>
+            <hr/>
+            <form action="${pageContext.servletContext.contextPath}/admin/gallery/create" enctype="multipart/form-data" method="POST">
+                <input type="text" name="newGallery" placeholder="Neue Gallery" size="20">
+                <input type="text" name="newDescription" placeholder="Beschreibung" size="55">
+                <input type="submit" name="commit" value="speichern">
+            </form>
             <h3>Übersicht aller Gallerien</h3>
             <c:choose>
                 <c:when test="${not empty service.imageGalleries}">
@@ -45,7 +52,7 @@
                         </thead>
                         <tbody>
                             <c:forEach items="${service.imageGalleries}" var="gal">
-                                <tr><td>${gal.name}</td>
+                                <tr><td><b>${gal.name}</b></td>
                                     <td>${gal.description}</td>
                                     <td>${gal.timestmp}</td>
                                     <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/gallery/delete?id=${gal.imgGalleryID}"><i class="fa fa-times-circle"/></a></td>
@@ -58,14 +65,6 @@
                     <p>Keine Gallery vorhanden.</p>
                 </c:otherwise>
             </c:choose>
-
-            <h3>Gallerie anlegen</h3>
-            <hr/>
-            <form action="${pageContext.servletContext.contextPath}/admin/gallery/create" enctype="multipart/form-data" method="POST">
-                <input type="text" name="newGallery" placeholder="Neue Gallery" size="20">
-                <input type="text" name="newDescription" placeholder="Beschreibung" size="55">
-                <input type="submit" name="commit" value="speichern">
-            </form>
         </main> 
     </jsp:body>
 </t:genericPage>

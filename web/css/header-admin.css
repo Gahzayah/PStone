@@ -31,12 +31,18 @@ header{
     margin:0;
     text-align: left;
     color:#666;
+    margin-left: -0.05em;
 }
 .adminMenu ul li {
     float:none;
+    margin: 0;
+    padding: 0;
     text-align: left;
     font-size: 14px;
-    color: #CC4511;
+    color: #862500;
+    padding-left: 5px;
+    border-left: 2px solid #444;
+    margin-bottom: 5px;
 }
 .adminMenu ul {
     list-style-type: none;

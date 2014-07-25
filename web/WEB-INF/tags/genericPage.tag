@@ -53,7 +53,7 @@
                         <section class="adminConsole">
                             <div class="w800">
                                 <p style="float:left;">Sie sind eingeloggt als:  <span><c:out value="${sessionScope.User}"/></span></p>  
-                                <p style="float:right;"><a href="${pageContext.servletContext.contextPath}/admin/logout"><b>Logout</b></a>&nbsp;<i class="fa fa-share"></i></p>
+                                <p style="float:right;"><a href="${pageContext.servletContext.contextPath}/admin/logout">Logout</a>&nbsp;<i class="fa fa-share"></i></p>
                             </div>
                         </section>
                         <div>                       
@@ -70,10 +70,6 @@
                                     <a href="#"><li>durchsuchen</li></a>
                                 </ul>
                                 <ul>
-                                    <h4>Statistik</h4>
-                                    <a href="#"><li>Besucher</li></a>
-                                </ul>
-                                <ul class="clear">
                                     <h4>Statistik</h4>
                                     <a href="#"><li>Besucher</li></a>
                                 </ul>

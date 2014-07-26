@@ -26,13 +26,20 @@ public class ImgService {
         return byteStringArray;
     }
 
+    public Images getSingleImageByID(Long id) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        Images img = em.find(Images.class, id);;
+        return img;
+    }
+
     public void setByteStringArray(String byteStringArray) {
         this.byteStringArray = byteStringArray;
     }
-        public List<Images> getImagesByCatID(String parameter) {
+
+    public List<Images> getImagesByCatID(String parameter) {
         List<Images> result = null;
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        TypedQuery<Images> query = em.createQuery("Select q from Images q where q.imgCat.imgCatID = " + parameter, Images.class);
+        TypedQuery<Images> query = em.createQuery("Select q from Images q where q.category.imgCatID = " + parameter, Images.class);
         result = query.getResultList();
         em.close();
         return result;

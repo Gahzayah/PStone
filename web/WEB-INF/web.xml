@@ -29,16 +29,8 @@
         <servlet-class>org.mhi.servlets.CreateGallery</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetImage</servlet-name>
-        <servlet-class>org.mhi.servlets.GetImage</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetCategory</servlet-name>
-        <servlet-class>org.mhi.servlets.GetCategory</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Gallery</servlet-name>
-        <jsp-file>/gallery.jsp</jsp-file>
+        <servlet-name>SRV:Gallery</servlet-name>
+        <servlet-class>org.mhi.servlets.GetGallery</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetImages</servlet-name>
@@ -79,20 +71,12 @@
         <url-pattern>/admin/gallery/create</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetImage</servlet-name>
-        <url-pattern>/gallery/image</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetCategory</servlet-name>
-        <url-pattern>/gallery/category</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Gallery</servlet-name>
+        <servlet-name>SRV:Gallery</servlet-name>
         <url-pattern>/gallery</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetImages</servlet-name>
-        <url-pattern>/gallery/category/images</url-pattern>
+        <url-pattern>/gallery/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -47,6 +47,7 @@
             </form>
             <script>
                 $(document).ready(function() {
+                    /* ToDo image is Reserved Word */
                     // Own Rule
                     $.validator.addMethod("valueNotEquals", function(value, element, arg) {
                         return arg !== value;

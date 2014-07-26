@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.mhi.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.mhi.imageutilities.ImageResizer;
 import org.mhi.persistence.Images;
+import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgService;
 
 /**
@@ -32,11 +35,49 @@ public class GetImages extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("image/jpeg");
-        ImgService service = new ImgService(); 
-        List<Images> list = service.getImagesByCatID(request.getParameter("id"));
-        request.setAttribute("imagesByCat", list);
-        
+        ImgService service = new ImgService();
+
+        String imgCatByID = request.getParameter("imgCat");
+        String imgByID = request.getParameter("img");
+        String imgListByID = request.getParameter("id");
+
+        // IMAGE LIST
+        if (imgListByID != null) {
+            List<Images> list = service.getImagesByCatID(imgListByID);
+            if (list != null) {
+                List<ImgCat> listB = service.getCategoriesByID(list.get(0).getCategory().getGallery().getImgGalleryID().toString());
+                request.setAttribute("CatByGalID", listB);
+            }
+
+            request.setAttribute("imagesByCat", list);
+            request.getRequestDispatcher("/category.jsp").forward(request, response);
+        }
+        // IMAGE BY ID
+        if (imgByID != null) {
+
+            Images img = service.getSingleImageByID(Long.valueOf(imgByID));
+            // Image as ByteArray
+            byte[] imageRaw = img.getFileBlob();
+
+            response.setContentLength(imageRaw.length);
+            response.getOutputStream().write(imageRaw);
+
+        }
+        // CAT-IMAGE BY ID
+        if (imgCatByID != null) {
+
+            ImageResizer ir = new ImageResizer();
+            // Retrieve ImgCategory
+            ImgCat cat = service.getCategoryByID(Long.valueOf(imgCatByID));
+
+            byte[] imageRaw = cat.getFileBlob();
+            // Resize Image to 50px
+            imageRaw = ir.resize(imageRaw, 95, 95);
+
+            response.setContentLength(imageRaw.length);
+            response.getOutputStream().write(imageRaw);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

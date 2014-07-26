@@ -91,7 +91,7 @@
                 <ul>
                     <a href="${pageContext.servletContext.contextPath}/index.jsp"><li>Start</li></a>
                     <a href="#"><li>About</li></a>
-                    <a href="${pageContext.servletContext.contextPath}/gallery.jsp"><li>Gallery</li></a>
+                    <a href="${pageContext.servletContext.contextPath}/gallery"><li>Gallery</li></a>
                     <a href="#"><li>Workshop</li></a>
                     <a href="#"><li>Contact</li></a>
                 </ul>

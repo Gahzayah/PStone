@@ -6,19 +6,23 @@
 package org.mhi.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.mhi.imageutilities.ImageResizer;
 import org.mhi.persistence.ImgCat;
+import org.mhi.persistence.ImgGallery;
 import org.mhi.persistence.ImgService;
 
 /**
  *
  * @author MaHi
  */
-public class GetImage extends HttpServlet {
+public class GetGallery extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,19 +34,27 @@ public class GetImage extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("image/jpeg");
+        String galleryID = request.getParameter("id");
+        // Load Database Class
         ImgService service = new ImgService();
-        ImageResizer ir = new ImageResizer();
-        // Retrieve ImgCategory
-        ImgCat cat = service.getCategoryByID(Long.valueOf(request.getParameter("id")));
+        // Lade Gallery Liste
+        List<ImgGallery> list = service.getImageGalleries();
+        request.setAttribute("GalleryList", list);
         
-        byte[] imageRaw = cat.getFileBlob();
-        // Resize Image to 50px
-        imageRaw = ir.resize(imageRaw,95,95);
+        if (galleryID != null) {
+            // List of Categories
+            List<ImgCat> listc = service.getCategoriesByID(request.getParameter("id"));
+            request.setAttribute("CatByGalID", listc);
+            request.getRequestDispatcher("/gallery.jsp").forward(request, response);
+        }else{
+            // List of Galleries
+            if(list!=null){
+                List<ImgCat> listB = service.getCategoriesByID(list.get(0).getImgGalleryID().toString());
+                request.setAttribute("CatByGalID", listB);
+            }                   
+            request.getRequestDispatcher("/gallery.jsp").forward(request, response);
+        }
         
-        response.setContentLength(imageRaw.length);
-        response.getOutputStream().write(imageRaw);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

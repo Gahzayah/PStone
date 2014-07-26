@@ -44,17 +44,16 @@ public class GetImages extends HttpServlet {
         // IMAGE LIST
         if (imgListByID != null) {
             List<Images> list = service.getImagesByCatID(imgListByID);
-            if (list != null) {
+            if (list != null && !list.isEmpty()) {
                 List<ImgCat> listB = service.getCategoriesByID(list.get(0).getCategory().getGallery().getImgGalleryID().toString());
                 request.setAttribute("CatByGalID", listB);
             }
-
             request.setAttribute("imagesByCat", list);
             request.getRequestDispatcher("/category.jsp").forward(request, response);
         }
         // IMAGE BY ID
         if (imgByID != null) {
-
+            
             Images img = service.getSingleImageByID(Long.valueOf(imgByID));
             // Image as ByteArray
             byte[] imageRaw = img.getFileBlob();

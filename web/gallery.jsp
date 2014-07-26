@@ -3,7 +3,7 @@
     Created on : 03.07.2014, 04:08:10
     Author     : MaHi
 --%>
-
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -42,8 +42,7 @@
                         </div>
                         <div class="pix200 galleryinfo">
                             <a href="<c:url value="/gallery/${cat.name}?id=${cat.imgCatID}"/>"><h4>${cat.name}</h4></a>
-                            <p >15 Photos</p>
-                            <p >2x angesehen</p>
+                            <p>${fn:length(cat.images)}&nbsp;Photos</p>
                         </div>
                     </div>
                 </c:forEach>            

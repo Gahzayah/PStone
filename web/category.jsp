@@ -39,8 +39,10 @@
             <section class='pix600 borderLefto'>
                 <%-- Kategorie-Images--%>
                 <c:forEach items="${requestScope.imagesByCat}" var="img">
-                    <a href="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" data-lightbox="${img.category.name}" data-title="${img.description}"><img src="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" alt="${img.name}" title="${img.description}" width="110"/></a>
-                    </c:forEach>            
+                    <a href="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" data-lightbox="${img.category.name}" data-title="${img.description}" class="link-image">
+                        <img src="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" alt="${img.name}" title="${img.description}"/>
+                    </a>
+                </c:forEach>            
             </section>
         </main> 
     </jsp:body>

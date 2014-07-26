@@ -6,10 +6,7 @@
 package org.mhi.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +46,7 @@ public class GetGallery extends HttpServlet {
         }else{
             // List of Galleries
             if(list!=null){
+                // Categorie-List First Element
                 List<ImgCat> listB = service.getCategoriesByID(list.get(0).getImgGalleryID().toString());
                 request.setAttribute("CatByGalID", listB);
             }                   

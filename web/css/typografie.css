@@ -38,7 +38,12 @@ h3 {
     color: #895989;
 }
 h4 {
-    font-size: 20px;
+    margin:0;
+    padding:0;
+    font-size: 18px;
+    line-height: 24px;
+    color: rgb(61, 131, 153);
+    /* text-decoration: none; */
 }
 
 /* Paragraph ; */
@@ -55,7 +60,15 @@ p.intro {
     font-size: 15px;
     line-height: 22px;
     margin: 0px 0px 5px 0px;
-    color: #a8b2d1;
+}
+.light{
+    color: #a8b2d1;  
+}
+.normal {
+    color: #445;
+}
+.dark {
+    color: #222;
 }
 
 section ul li {

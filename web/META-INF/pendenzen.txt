@@ -1,0 +1,8 @@
+1. Text-Länge überprüfen von einem Element was per data-max-length definiert wird
+
+var element =  '.gallery-nav h4'; 
+ var text    =  $(element).html();
+ if(text.length > 5){
+     var newString =  text.substring(0, 8) + "..." ;
+     $(element).replaceWith("<h4>'"+ newString +"'</h4>");
+ };

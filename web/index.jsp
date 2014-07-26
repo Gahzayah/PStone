@@ -26,7 +26,7 @@
         <main>
             <section class='pix400 blue'>
                 <h2>Hello I am Heading</h2>
-                <p class='intro'> Hello i am Subtext <span> 11.04.2007</span> <span>Stat Haris</span></p>
+                <p class='intro light'> Hello i am Subtext <span> 11.04.2007</span> <span>Stat Haris</span></p>
         <!--        <div id="ri-grid" class="ri-grid" >
                     <img class="ri-loading-image" src="/images/system/loading.gif"/>
                     <ul>
@@ -53,11 +53,11 @@
             </section>
             <section class='pix400 borderLeft'>
                 <h3>Hello I am Heading</h3>
-                <p class="intro">12.04.2014</p>
+                <p class="intro light">12.04.2014</p>
                 <p> At daybreak the wind began to blow hard again, and the heavens seemed to predict a gale. more [..]</p> 
-                <h3>Hello I am Heading</h3><p class="intro">12.04.2014</p>
+                <h3>Hello I am Heading</h3><p class="intro light">12.04.2014</p>
                 <p> At daybreak the wind began to blow hard again, and the heavens seemed to predict a gale. more [..]</p> 
-                <h3>Hello I am Heading</h3><p class="intro">12.04.2014</p>
+                <h3>Hello I am Heading</h3><p class="intro light">12.04.2014</p>
                 <p> At daybreak the wind began to blow hard again, and the heavens seemed to predict a gale. more [..]</p> 
             </section>
         </main>  

@@ -20,33 +20,40 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/input.css"> 
         <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/listen.css"> 
         <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/form-admin.css"> 
-        <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/font-awesome-4.0.3/css/font-awesome.css"> 
-
+        <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/font-awesome-4.0.3/css/font-awesome.css">
         <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery.js" ></script>
-        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery-ui.js" ></script>
-        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery.fileupload.js"></script>
-        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/upload.js" ></script> 
+        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery.validate.js"></script>
+
 
     </jsp:attribute>  
     <jsp:body>
         <main>
-            <h3>Gallerie anlegen</h3>
+            <h2>Gallerie anlegen</h2>
             <hr/>
             <form action="${pageContext.servletContext.contextPath}/admin/gallery/create" enctype="multipart/form-data" method="POST">
-                <input type="text" name="newGallery" placeholder="Neue Gallery" size="20">
-                <input type="text" name="newDescription" placeholder="Beschreibung" size="55">
+                <input type="text" name="newGallery" placeholder="Neue Gallery" size="20" required>
+                <input type="text" name="newDescription" placeholder="Beschreibung" size="55" required>
                 <input type="submit" name="commit" value="speichern">
             </form>
-            <h3>Übersicht aller Gallerien</h3>
+            <script>
+                $(document).ready(function() {
+                    $("form").validate({
+                        errorPlacement: function() {
+                            /* Max 14 Charakters newGallery */
+                            return false;
+                        }
+                    });
+                });
+            </script>
+            <h3>Alle erstellten Gallerien</h3>
             <c:choose>
                 <c:when test="${not empty service.imageGalleries}">
-                    <p class="intro">Achtung! Beim löschen einer Gallerie werden alle zugeordneten Kategorie sowie deren Bilder gelöscht.</p>
+                    <p class="warning">Achtung! Beim löschen einer Gallerie werden alle zugeordneten Kategorie sowie deren Bilder gelöscht.</p>
                     <table class="output">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Beschreibung</th>
-                                <th>Erstellt am</th>
                                 <th class="center">Löschen</th>
                             </tr>
                         </thead>
@@ -54,7 +61,6 @@
                             <c:forEach items="${service.imageGalleries}" var="gal">
                                 <tr><td><b>${gal.name}</b></td>
                                     <td>${gal.description}</td>
-                                    <td>${gal.timestmp}</td>
                                     <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/gallery/delete?id=${gal.imgGalleryID}"><i class="fa fa-times-circle"/></a></td>
                                 </tr>
                             </c:forEach>

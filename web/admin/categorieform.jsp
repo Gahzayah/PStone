@@ -22,32 +22,59 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/font-awesome-4.0.3/css/font-awesome.css"> 
 
         <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery.js" ></script>
-        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery-ui.js" ></script>
-        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery.fileupload.js"></script>
+        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/jquery.validate.js"></script>
         <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/upload_cat.js" ></script> 
-
     </jsp:attribute>  
     <jsp:body>
         <main>
             <h3>Neue Kategorie anlegen</h3>
             <hr/>
-            <form id="upload" action="${pageContext.servletContext.contextPath}/admin/category/create" enctype="multipart/form-data" method="POST">
-                <select name="gallery">
+            <form action="${pageContext.servletContext.contextPath}/admin/category/create" enctype="multipart/form-data" method="POST">
+                <select name="gallery" onchange="this.className = this.options[this.selectedIndex].className" class="light" required>
                     <option selected>Gallery wählen</option>
                     <c:forEach items="${service.imageGalleries}" var="gal">
-                        <option value="${gal.imgGalleryID}">${gal.name}</option>
+                        <option class="dark" value="${gal.imgGalleryID}">${gal.name}</option>
                     </c:forEach>
                 </select>
                 <input type="button" name="add" value="Bild hinzufügen">
-                <div id="prevUpload">
-                    <!-- The file uploads will be shown here -->
-                </div>
+                <!-- The file uploads will be shown here -->
+                <div id="prevUpload"></div>
                 <div id="uploadMessage"></div>
-                <input type="file" name="files"/>
-                <input type="text" size="20" name="newCategory" placeholder="Neue Kategorie">
-                <input type="text" size="55" name="newDescription" placeholder="Beschreibung">
-                <input type="button" name="upload" value="speichern">  
+                <input id="fileInput" type="file" name="files" required/>
+                <input type="text" size="20" name="newCategory" placeholder="Neue Kategorie" required>
+                <input type="text" size="55" name="newDescription" placeholder="Beschreibung" required>
+                <input type="submit" name="upload" value="speichern">  
             </form>
+            <script>
+                $(document).ready(function() {
+                    // Own Rule
+                    $.validator.addMethod("valueNotEquals", function(value, element, arg) {
+                        return arg !== value;
+                    }, "Value must not equal arg.");
+
+                    $("form").validate({
+                        // Ignore for Hidden Fields
+                        ignore: [],
+                        // All Image Files Possible
+                        rules: {
+                            files: {
+                                required: true,
+                                extension: "png|jpe?g|gif"
+                            },
+                            gallery: {
+                                valueNotEquals: "Gallery wählen"
+                            }
+                        }, 
+                        errorPlacement: function(error,element) {
+                            if (element.attr("name") === "files"){
+                                $("input[name='add']").addClass("error");
+                            }else{
+                                return false;
+                            }
+                        }
+                    });
+                });
+            </script>
             <h3>Übersicht aller Kategorien</h3>
             <c:choose>
                 <c:when test="${not empty service.imageCategories}">
@@ -77,7 +104,6 @@
                 </c:otherwise>
             </c:choose>
             <p>&nbsp;</p>
-            
         </main> 
     </jsp:body>
 </t:genericPage>

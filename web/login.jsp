@@ -1,10 +1,17 @@
+<%-- 
+    Document   : login
+    Created on : 25.07.2014, 10:29:21
+    Author     : MaHi
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 
 <head>
     <!-- Basics -->
     <meta charset="utf-8">
     <title>Login</title>
-    <link rel="stylesheet" href="css/input.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/input.css">
 </head>
 
 <body style="background: #444">
@@ -24,9 +31,3 @@
 </body>
 
 </html>
-
-
-
-
-
-

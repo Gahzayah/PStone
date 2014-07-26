@@ -14,7 +14,10 @@ section ul a:hover li{
     background:#444;
 }
 section ul li {
-    background:#fff;
+    /* background:#fff; */
+    padding: 0 0 0 5px;
+    /* font-weight: bold; */
+    color: #666;
     overflow: hidden;
 }
 .gallery {
@@ -40,4 +43,7 @@ section ul li {
 }
 .gallery h4 {
     margin: 0 0 5px;
+}
+.gallery a:link ,.gallery-nav a:link{
+    text-decoration: none;
 }

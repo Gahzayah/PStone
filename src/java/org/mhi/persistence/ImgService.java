@@ -29,6 +29,14 @@ public class ImgService {
     public void setByteStringArray(String byteStringArray) {
         this.byteStringArray = byteStringArray;
     }
+        public List<Images> getImagesByCatID(String parameter) {
+        List<Images> result = null;
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        TypedQuery<Images> query = em.createQuery("Select q from Images q where q.imgCat.imgCatID = " + parameter, Images.class);
+        result = query.getResultList();
+        em.close();
+        return result;
+    }
 
     /**
      * Category List

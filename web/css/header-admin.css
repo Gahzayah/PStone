@@ -102,6 +102,9 @@ Task: defines a yellow warning Box ; */
     background: #fff6cc;
     border: 1px solid #F0DD87;
     border-radius: 0.2em;
+    font-size: 14px;
+    padding-left: 2px;
+    color: #4B2F05 !important;
 }
 
 /* -- Validate-Box
@@ -119,8 +122,8 @@ Task: defines a green validate Box ; */
 /* -- Error-Box
 Task: defines a red error Box ; */
 .error {
-    background: #FFABAB;
-    border: 1px solid #FF8080;
+    background: #F3DEDE;
+    border: 1px solid #FFBEBE;
     border-radius: 0.2em;
 }
 

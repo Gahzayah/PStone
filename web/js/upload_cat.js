@@ -1,68 +1,33 @@
-var form = '#upload';                                // Define the FORM-Selector
-var btnAdd = "input[name='add']";                      // Define the ADD-Button
-var btnFileType = "input[name='files']";                    // Define the FILE-TYPE-Button
-var btnUpload = "input[name='upload']";                     // Define the UPLOAD-Button
-var selectedOutput = '#upload #prevUpload';                    // Define the Output of <ul>
-var filenameLength = 35;
-var data_ = null;
-
-
+var form = '#upload';
+var btnAdd = "input[name='add']";
+var btnFileType = "input[name='files']";
 
 $(function() {
+    var fileInput = document.getElementById('fileInput');
+    var selectedOutput = $("#prevUpload");
+    var count = 0;
+
+    // Click FileInput Button
     $(btnAdd).click(function() {
         $(this).parent().find(btnFileType).click();
     });
-    var count = 0;
-
-    $(form).fileupload({
-        async: true,
-        dataType: 'json',
-        processData: false, // Don't process the files
-
-        start: function(e) {
-            $(btnUpload).unbind('click');       // Unbind Click Event 
-        },
-        add: function(e, data) {
-            // Form Is not submitted in Chrome and IE.. for firefox it submits the from to same url that i am in.
-            var filetype = data.files[0].type.split('/');
-            var filename = checkFileName(data.files[0].name, filetype, filenameLength);
-            var filesize = formatFileSize(data.files[0].size);
-            var reader = new FileReader();
-            count=count+1;
-
-            // clear Server-Messages
-            $('#uploadMessage').empty();
-
-            // Preview Images and Information
-            var tpl = $('<div class="beforeUpload">\n\
-                            <div class="image"><img id="target'+count+'" src="#" alt="'+data.files[0].name+'"></div>\n\
-                        </div>');
-            // Add the HTML to the DIV element
-            tpl.appendTo(selectedOutput);
-            
-            // Preview Image
-            reader.onload = function(e) {                 
-                $("#target"+count).attr('src', e.target.result);
-            };
-            reader.readAsDataURL(data.files[0]);
-            // Wenn nicht benutzt wird application/octect-stream verschickt
-            $(btnUpload).click(function() {
-                data.submit();
-            });
-
-        },
-        success: function(data) {
-            console.log(data);
-            $(selectedOutput).empty();
-
-        },
-        error: function(data) {
-            console.log(data);
-            alert("Error : " + data.statusText + " Status: " + data.status);
-        }
+   
+    // Activate EventListener if btnAdd is called
+    fileInput.addEventListener('change', function(e) {
+        var reader = new FileReader();
+        var file = fileInput.files[0];
+        // Disable Upload Button
+        $("input[name='add']").prop('type', 'hidden');
+        // Template for Image Preview
+        var tpl = $('<img id="target" src="#" alt="">');
+        $(selectedOutput).prepend(tpl);
+        // Preview Image
+        reader.onload = function(e) {
+            $("#target").attr('src', e.target.result);
+        };
+        reader.readAsDataURL(file);
     });
 });
-
 
 
 function formatFileSize(bytes) {

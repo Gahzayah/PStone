@@ -8,8 +8,8 @@
     <!-- JPA uses all Classes annotated as Enities -->
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="toplink.ddl-generation" value="create-tables" />
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://www.brackwasser.ch:3306/d01a6a79?zeroDateTimeBehavior=convertToNull&amp;useUnicode=yes&amp;characterEncoding=UTF-8"/>
+      <property name="toplink.ddl-generation" value="create-tables"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://www.brackwasser.ch:3306/d01a6a79?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8"/>
       <property name="javax.persistence.jdbc.user" value="d01a6a79"/>
       <property name="javax.persistence.jdbc.password" value="_techadmin!"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

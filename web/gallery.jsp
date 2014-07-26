@@ -20,59 +20,59 @@
         <main>
             <section class='pix200'>
                 <ul class="gallery-nav">
-                    <%-- Gallery´s--%>
-                    <c:choose>
+                    <%-- Gallery-Liste--%>
+                    <c:forEach items="${service.imageGalleries}" var="gal">
+                        <a href="<c:url value="/gallery/category?id=${gal.imgGalleryID}"/>"><h4>${gal.name}</h4></a>
+                        <%-- Kategorie-Liste--%>
+                        <c:forEach items="${requestScope.CatByGalID}" var="cat">
+                            <c:if test="${cat.gallery.name == gal.name}"> 
+                                <a href=""><li>${cat.name}</li> </a>
+                            </c:if>
+                        </c:forEach>
+                    </c:forEach>
+                </ul>
+            </section>
+            <section class='pix600 borderLefto'>
+                <%-- Kategorie-Objekte--%>
+                <c:forEach items="${requestScope.CatByGalID}" var="cat">
+                    <div class="gallery">
+                        <div class="pix95">
+                            <img src="<c:url value="/gallery/image?id=${cat.imgCatID}"/>" alt="${cat.name}" title="${cat.description}"/>
+                        </div>
+                        <div class="pix200 galleryinfo">
+                            <a href="#"><h4>${cat.name}</h4></a>
+                            <p >15 Photos</p>
+                            <p >2x angesehen</p>
+                        </div>
+                    </div>
+                </c:forEach>            
+            </section>
+        </main> 
+    </jsp:body>
+</t:genericPage>
+        
+        
+    <%--    
+   <c:choose>
                         <c:when test="${not empty service.imageGalleries}">
                             <c:forEach items="${service.imageGalleries}" var="gal">
                                 <a href="<c:url value="/gallery/category?id=${gal.imgGalleryID}"/>"><h4>${gal.name}</h4></a>
-                                        <%-- Kategorien--%>
+                                         Kategorien
                                         <c:choose>
                                             <c:when test="${not empty requestScope.CatByGalID}">
                                                 <c:forEach items="${requestScope.CatByGalID}" var="cat">
                                                     <c:choose>
                                                         <c:when test="${cat.gallery.name == gal.name}">
-                                                        <a href=""><li>${cat.name}</li> </a>
-                                                    </c:when>
-                                                </c:choose>
-                                        </c:forEach>
-                                    </c:when>
-                                </c:choose>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
+                                                    <a href=""><li>${cat.name}</li> </a>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </c:when>
+                                        </c:choose>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
                             <h4>(Leer)</h4>
                         </c:otherwise>
-                    </c:choose>
-                </ul>
-            </section>
-            <section class='pix600 borderLefto'>
-                <c:choose>
-                    <c:when test="${not empty requestScope.CatByGalID}">
-                        <c:forEach items="${requestScope.CatByGalID}" var="cat">
-                            <div class="gallery">
-                                <div class="pix95">
-                                    <img src="<c:url value="/gallery/image?id=${cat.imgCatID}"/>" alt="${cat.name}" title="${cat.description}"/>
-                                </div>
-                                <div class="pix200 galleryinfo">
-                                    <a href="#"><h4>${cat.name}</h4></a>
-                                    <p >15 Photos</p>
-                                    <p >2x angesehen</p>
-                                </div>
-                            </div>
-                        </c:forEach> 
-                    </c:when>
-                    <c:otherwise>
-                        <div class="gallery">
-                            <div class="pix95">
-                                <img src="<c:url value="/images/gridrotator/1.jpg"/>" alt="bild.bild" title="Titel für diesen Qua"/>
-                            </div>
-                            <div class="pix200 galleryinfo">
-                                <h4>Keine Category vorhanden</h4>
-                            </div>
-                        </div>
-                    </c:otherwise>
-                </c:choose>            
-            </section>
-        </main> 
-    </jsp:body>
-</t:genericPage>
+                    </c:choose>                         
+--%>

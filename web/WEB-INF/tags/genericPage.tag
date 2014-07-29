@@ -77,31 +77,32 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div>
-                            <h1>Titel der Page</h1>
-                            <h2>Subtitle of Page</h2>
-                            <p class='Autor'>Max Mustermann</p>
-                            <p>Musterstr.111 , 1231 Musterhausen</p>
-                        </div>
+                        <div class="shadow">
+                            <h1>Stonys Glas</h1>
+                            <h2>Glaswerkstatt am See</h2>
+                            <div class="AdressContainer">
+                            <p class='Autor'>Barbara Steiner</p>
+                            <p>Seestr. 52a , 6375 Beckenried</p>
+                            </div>
+                        </div
                     </c:otherwise>
                 </c:choose>
             </header>
             <%-- Navigation --%>            
             <nav>
                 <ul>
-                    <a href="${pageContext.servletContext.contextPath}/index.jsp"><li>Start</li></a>
-                    <a href="#"><li>About</li></a>
-                    <a href="${pageContext.servletContext.contextPath}/gallery"><li>Gallery</li></a>
-                    <a href="#"><li>Workshop</li></a>
-                    <a href="#"><li>Contact</li></a>
+                    <a href="<c:url value="/index.jsp" />"><li>Start</li></a>
+                    <a href="<c:url value="/about.jsp" />"><li>About</li></a>
+                    <a href="<c:url value="/gallery" />"><li>Gallery</li></a>
+                    <a href="<c:url value="/workshop.jsp" />"><li>Workshop</li></a>
+                    <a href="<c:url value="/contact.jsp" />"><li>Contact</li></a>
                 </ul>
             </nav></div>
             <jsp:invoke fragment="header"/>
             <jsp:doBody/>
         <footer>
             <div>
-                <p><a href="#">Impressum</a></p>
-                <p> Copyright All Rights reserverd.</p>
+                <%-- ToDo --%>
             </div> 
         </footer>
         <jsp:invoke fragment="footer"/>

@@ -14,11 +14,14 @@
     <jsp:attribute name="head">
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css"/>" > 
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/typografie.css"/>" > 
-        <link rel="stylesheet" type="text/css" href="<c:url value="/css/typografie.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/gallery.css"/>" >
     </jsp:attribute>
     <jsp:body>
         <main>
+            <section>
+            <h3>Gallery</h3>
+            <hr>
+            </section>
             <section class='pix200'>
                 <ul class="gallery-nav">
                     <%-- Gallery-Liste--%>

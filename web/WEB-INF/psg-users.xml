@@ -31,6 +31,6 @@
   <user username="BarbaraSG" password="capture360deg" roles="Manager"/>
   <user username="Fjubuu" password="martin80" roles="Administrator,Manager"/>
   <user username="admin" password="admin" roles="Administrator,Manager"/>
+  <user username="ide" password="79ieu30n" roles="manager-script,admin"/>
   
-	<user username="ide" password="79ieu30n" roles="manager-script,admin"/>
 </tomcat-users>

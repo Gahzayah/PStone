@@ -4,17 +4,33 @@
 */
 
 .wrapper {
-    background-image: url(../images/4.jpg);
+    background-image: url(../images/header/h7.jpg);
     background-repeat:repeat-x;  
+    overflow:hidden;
 }
 header , header ul , nav , nav ul{
     position: relative;
     width: 100%;
-    height: auto;
+    /* height: auto; */
     text-align: center;
 }
-header div , nav ul {
+header .shadow , nav ul {
     display: inline-block;
+}
+header .shadow {
+    background-image: url(../images/black50.png) ;
+    box-shadow: 0px 0px 150px 150px rgba(0, 0, 0, 0.5);	
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";       /* IE 8 */
+    filter: alpha(opacity=50);  /* IE 5-7 */
+    -moz-opacity: 0.5;          /* Netscape */
+    -khtml-opacity: 0.5;        /* Safari 1.x */
+    /* opacity: 0.5; */               /* Good browsers */
+    height: 200px;
+    overflow: hidden;
+}
+header .AdressContainer{
+  text-align: left;  
+  padding: 0 0 0 15px;
 }
 header ul li , nav ul li{
     float: left; 
@@ -28,34 +44,30 @@ header h1 {
     font-family: 'Sofia', cursive;
     font-size: 4em;
     word-spacing: -0.2em;
-    color: #F8F8F8;
-}
-header h1:first-letter {
-    padding: 0 3px;
-    /* background: #EDF5F7; */
+    color: #E8FFFF;
 }
 /* SubTitle */
 header h2 {
     margin: 0 0 20px 0;
     font-family: 'Swanky and Moo Moo', cursive;
     font-size: 2em;
-    color: #DFE1E2;
+    color: #CBE8F7;
 }
 /* Name */
 header .Autor {
     font-weight: bold;
     font-size: 1.2em;
-    color: #555;
+    color: #A6B6BB;
 }
 header p {
     margin: 0;
     padding: 0;
-    color: #555;
+    color: #BCCDD3;
 }
 
 nav {
     background: #F5F5F5;
-    margin:32px 0 0 0;
+    /* margin:32px 0 0 0; */
     border-top: 1px solid #999;
     border-bottom: 1px solid #999;
 }

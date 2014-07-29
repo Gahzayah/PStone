@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/ProjectStone">
-    <Realm className="org.apache.catalina.realm.MemoryRealm" 
-           pathname="F:\Netbeans-Poject\2014\ProjectStone\web\WEB-INF\psg-users.xml" />
+<Context path="/psg">
+
 </Context>
 

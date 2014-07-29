@@ -25,7 +25,8 @@ input {
     display: block;
 }
 textarea {
-    margin:1em 0.3em;
+    margin: 0 5px;
+    margin-bottom: 5px;
     padding: 0 0.5em;
     font-weight: bold;
     border: 1px solid #999;

@@ -17,8 +17,23 @@
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/typografie.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/gallery.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/lightbox/lightbox.css"/>" >
+        <link rel="stylesheet"  type="text/css" href="<c:url value="/css/nailthumb/jquery.nailthumb.1.1.css"/>" />
         <script type="text/javascript" src="<c:url value="/js/lib/jquery.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/lib/jquery.nailthumb.1.1.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/js/lightbox.js"/>"></script>
+        <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('.nailthumb-container').nailthumb();
+        });
+        </script>
+        <style type="text/css" media="screen">
+        .square-thumb {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            margin-right: 10px;
+        }
+        </style>
     </jsp:attribute>
     <jsp:body>
         <main>
@@ -39,9 +54,11 @@
             <section class='pix600 borderLefto'>
                 <%-- Kategorie-Images--%>
                 <c:forEach items="${requestScope.imagesByCat}" var="img">
-                    <a href="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" data-lightbox="${img.category.name}" data-title="${img.description}" class="link-image">
-                        <img src="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" alt="${img.name}" title="${img.description}"/>
-                    </a>
+                    <div class="nailthumb-container square-thumb">
+                        <a href="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" data-lightbox="${img.category.name}" data-title="${img.description}" class="link-image">
+                            <img src="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" alt="${img.name}" title="${img.description}" />
+                        </a>
+                    </div>
                 </c:forEach>            
             </section>
         </main> 

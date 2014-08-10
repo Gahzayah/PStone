@@ -12,9 +12,36 @@
 
 <t:genericPage titlepage="Title der Page">
     <jsp:attribute name="head">
+
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css"/>" > 
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/typografie.css"/>" > 
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/gallery.css"/>" >
+        <link rel="stylesheet"  type="text/css" href="<c:url value="/css/nailthumb/jquery.nailthumb.1.1.css"/>" />
+        <script type="text/javascript" src="<c:url value="/js/lib/jquery.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/lib/jquery.nailthumb.1.1.js"/>"></script>
+        <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var options = { 
+            titleScrolling:false,
+            preload:true,
+            titleWhen: 'load'
+            };
+
+            jQuery('.nailthumb-container').nailthumb(options);
+            
+        });
+        </script>
+        <style type="text/css" media="screen">
+        .square-thumb {
+            display: inline-block;
+            width:  95px;
+            height: 95px;
+            .square-thumb span:hover{
+                
+            }
+            
+        }
+        </style>
     </jsp:attribute>
     <jsp:body>
         <main>
@@ -40,7 +67,7 @@
                 <%-- Kategorie-Objekte--%>
                 <c:forEach items="${requestScope.CatByGalID}" var="cat">
                     <div class="gallery">
-                        <div class="pix95">
+                        <div class="nailthumb-container square-thumb pix95">
                             <img src="<c:url value="/gallery/${cat.name}?imgCat=${cat.imgCatID}"/>" alt="${cat.name}" title="${cat.description}"/>
                         </div>
                         <div class="pix200 galleryinfo">

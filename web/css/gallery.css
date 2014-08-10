@@ -28,7 +28,7 @@ section ul li {
         overflow:hidden;
 }
 .link-image img {
-    max-height: 75px;
+    /* max-height: 75px; */
     margin: 0 10px 10px 0;
 }
 .galleryinfo p{

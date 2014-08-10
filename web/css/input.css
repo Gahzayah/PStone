@@ -13,6 +13,7 @@
 form {
     position: relative;
     display:block; 
+    font-size: 1em;
     margin:0; 
     padding:0;  
     /* border:1px solid green; */
@@ -54,13 +55,15 @@ input[type=file]{
 }
 /* Label Defintion */
 label{
-    position: relative;   
+    position: relative; 
+    
+    font-size: 14px;
 }
 
 input {
     padding: 0 5px 0 5px;
     border: 1px solid #999;
-    /* display: block; */
+    display: block;
 }
 
 input::-moz-focus-inner /*Remove button padding in FF*/
@@ -158,7 +161,6 @@ input[type=checkbox]:checked + label:before {
 /* Login Formular */
 .login-container{
     position: fixed;
-    width: 300px;
     top: 50%;
     left: 50%;
     margin-top: -140px;
@@ -186,11 +188,11 @@ input[type=checkbox]:checked + label:before {
 }
 
 .login-container form {
-    margin: 20px auto;
-    padding:0 0 0 50px;
+    margin: 0 auto;
+    padding:40px;
 }
 .login-container input[type=text], .login-container input[type=password] {
-    width: 180px;
+    width: 200px;
     height: 33px;
 }
 .login-container input[type=submit] {

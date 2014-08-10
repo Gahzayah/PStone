@@ -23,6 +23,10 @@
             <input type="text" name="j_username" /><br/>
             <label for="j_password">Password:</label>
             <input type="password" name="j_password" />
+            <div class="checkbox">
+                <input type="checkbox"  id="checkbox">
+                <label for="checkbox">Passwort speichern</label>
+            </div>
             <input type="submit" value="Login" />
         </form>
     </div>

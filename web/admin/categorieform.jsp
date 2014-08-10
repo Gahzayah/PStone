@@ -40,8 +40,10 @@
                 <!-- The file uploads will be shown here -->
                 <div id="prevUpload"></div>
                 <input id="fileInput" type="file" name="files" required/>
-                <input type="text" size="20" name="newCategory" placeholder="Neue Kategorie" required>
-                <input type="text" size="55" name="newDescription" placeholder="Beschreibung" required>
+                <label for="newCategory">Neue Kategorie</label>
+                <input type="text"  name="newCategory" required>
+                <label for="newDescription">Beschreibung</label>
+                <input type="text" name="newDescription"  required>
                 <input type="submit" name="upload" value="speichern">  
             </form>
             <script>
@@ -64,11 +66,11 @@
                             gallery: {
                                 valueNotEquals: "Gallery wählen"
                             }
-                        }, 
-                        errorPlacement: function(error,element) {
-                            if (element.attr("name") === "files"){
+                        },
+                        errorPlacement: function(error, element) {
+                            if (element.attr("name") === "files") {
                                 $("input[name='add']").addClass("error");
-                            }else{
+                            } else {
                                 return false;
                             }
                         }

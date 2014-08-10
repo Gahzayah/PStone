@@ -44,13 +44,13 @@ public class Authentication extends HttpServlet {
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
             /* URL Redirection */
-            switch (reqServpath + reqPath) {
+            switch (reqServpath) {
                 case "/admin/logout":
                     session.invalidate();
-                    response.sendRedirect(reqCtxt);
+                    response.sendRedirect("/psg");
                     break;
                 default:
-                    response.sendRedirect(reqCtxt + reqServpath + reqPath);
+                    response.sendRedirect(reqCtxt + reqServpath);
             }
         }
 

@@ -43,6 +43,7 @@
                 <input id="check2" type="checkbox" name="check2" value="check2">  
                 <label for="check2">Checkbox No. 2</label>  
             </div> 
+            <label for="bday" >Datum</label>
             <input type="date" name="bday">
             <input type="month" name="bdaymonth">
             <input type="number" name="quantity" min="1" max="5">

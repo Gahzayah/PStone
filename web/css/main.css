@@ -3,21 +3,26 @@
     Author     : MaHi
 */
 body{  
-
+text-align:center;
 }
 
 main {
     font-size: 0;           /* Required to work with Inline-Blocks as Struture Element */
     box-sizing: border-box;
+    min-width: 800px;
     width: 800px;
     height: auto;
     margin: 15px auto;
     padding: 10px 0;
+    text-align: left;
+    display:inline-block;
 /*    background:#eee;*/
 }
 main section {
     padding: 0 0 0 10px;
-    margin: 0;   
+    margin: 15px auto;   
+    width: 800px;
+    text-align: left;
 }
 
 /* Use percent Boxes horizontal */

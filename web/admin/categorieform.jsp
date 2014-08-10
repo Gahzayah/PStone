@@ -39,7 +39,6 @@
                 <input type="button" name="add" value="Bild hinzufügen">
                 <!-- The file uploads will be shown here -->
                 <div id="prevUpload"></div>
-                <div id="uploadMessage"></div>
                 <input id="fileInput" type="file" name="files" required/>
                 <input type="text" size="20" name="newCategory" placeholder="Neue Kategorie" required>
                 <input type="text" size="55" name="newDescription" placeholder="Beschreibung" required>
@@ -76,6 +75,7 @@
                     });
                 });
             </script>
+            <hr>
             <h3>Übersicht aller Kategorien</h3>
             <c:choose>
                 <c:when test="${not empty service.imageCategories}">
@@ -86,6 +86,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Beschreibung</th>
+                                <th>Gallerie</th>
                                 <th class="center">Löschen</th>
                             </tr>
                         </thead>
@@ -94,6 +95,7 @@
                                 <tr>
                                     <td>${cat.name}</td>
                                     <td>${cat.description}</td>
+                                    <td>${cat.gallery.name}</td>
                                     <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/category/delete?id=${cat.imgCatID}"><i class="fa fa-times-circle"/></a></td>
                                 </tr>
                             </c:forEach>

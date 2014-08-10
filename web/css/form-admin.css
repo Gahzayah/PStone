@@ -24,6 +24,8 @@ form#upload{
     height: 95px;
     padding-left: 5px;
 
+    padding-right: 15px;
+    padding-bottom: 10px;
 }
 .closebtn{
     float:right;

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="false" path="/psg">
-    <Realm className="org.apache.catalina.realm.MemoryRealm" 
-           pathname="C:\Users\Fjubuu\Desktop\ProjectStone\web\WEB-INF\psg-users.xml" />
+<Context path="/ProjectStone">
+    
+    <Resource name="allinkl_mysql" auth="container" maxActive="100" maxIdle="30" maxWait="10000"
+                username="d01a6a79" password="_techadmin!" 
+                driverClassName="com.mysql.jdbc.Driver"
+                url="jdbc:mysql://www.brackwasser.ch:3306/d01a6a79"
+                logAbandoned="true" removeAbandoned="true" removeAbandonedTimeout="60"
+                type="javax.sql.DataSource"     />
+    
+    <Realm  className="org.apache.catalina.realm.DataSourceRealm" debug="99"
+            dataSourceName="allinkl_mysql" localDataSource="true"
+            userTable="UserPass" userNameCol="Username" userCredCol="Password"
+            userRoleTable="UserRole" roleNameCol="Rolename"    />
+    
 </Context>
 

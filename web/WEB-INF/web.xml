@@ -51,6 +51,7 @@
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/admin</url-pattern>
+                <url-pattern>/admin/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FileDelete</servlet-name>
@@ -98,12 +99,12 @@
     <!-- Security Configuration -->
     <!-- ###################### -->
     <security-role>
-        <description>Administrator</description>
-        <role-name>Administrator</role-name>
+        <description>Programmer</description>
+        <role-name>programmer</role-name>
     </security-role>
     <security-role>
         <description>Manager</description>
-        <role-name>Manager</role-name>
+        <role-name>manager</role-name>
     </security-role>
     <!-- Security Constraint -->
     <security-constraint>
@@ -115,8 +116,8 @@
         </web-resource-collection>
         <!-- This Roles are access the protected Ares-->
         <auth-constraint>
-            <role-name>Administrator</role-name>
-            <role-name>Manager</role-name>
+            <role-name>programmer</role-name>
+            <role-name>manager</role-name>
         </auth-constraint>
     </security-constraint>
     <!-- Kind of Authentication -->

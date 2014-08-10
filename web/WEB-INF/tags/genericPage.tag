@@ -13,7 +13,7 @@
 <%@attribute name="header" fragment="true" %>       <%-- Alternativ kann der Output des Fragments in eine Variable gespeichert werden. Dazu wird muss das var-Attribut von <jsp:invoke> gesetzt werden. --%>     
 <%@attribute name="footer" fragment="true" %> 
 
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
         <%-- Titel der Seite --%>
@@ -28,6 +28,8 @@
         <meta http-equiv="Cache-Control" content="no-store,no-cache,must-revalidate"> 
         <meta http-equiv="Pragma" content="no-cache"> 
         <meta http-equiv="Expires" content="-1"> 
+        <link href='http://fonts.googleapis.com/css?family=Swanky+and+Moo+Moo' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Sofia' rel='stylesheet' type='text/css'>
 
         <c:choose>
             <c:when test="${sessionScope.isAuthenticated}">

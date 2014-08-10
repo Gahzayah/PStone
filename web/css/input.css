@@ -6,66 +6,104 @@
 *       Content:
 *       o File-Upload Form
 *       o Input-Deklaration ( Submit,Button,Reset )
+*       o Textarea
+*       o Label
 */
 
-/* -- Form
-Task: FileUpload Form
-*/
+form {
+    position: relative;
+    display:block; 
+    margin:0; 
+    padding:0;  
+    /* border:1px solid green; */
+}
+/* Abstand zum unteren Element */
+input,
+textarea,
+select,
+.checkbox,
+.radiobox
+{
+    margin:0 0 10px 0;
+}
+input,
+textarea,
+select
+{
+    line-height: 2em;
+    height:2em;
+}
 
-
-
-/* -- Input */
-input {
-    margin: 0 5px;
-    margin-bottom: 5px;
-    height: 2em;
-    padding: 0 5px;
-    font-weight: bold;
-    border: 1px solid #999;
+/* Block-Elemente */
+textarea,
+label,
+select,
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"]{
     display: block;
 }
+
+/* Hide Elements for Customizing */
+input[type=radio],
+input[type=checkbox],
+input[type=file]{
+    display: none;
+}
+/* Label Defintion */
+label{
+    position: relative;   
+}
+
+input {
+    padding: 0 5px 0 5px;
+    border: 1px solid #999;
+    /* display: block; */
+}
+
+input::-moz-focus-inner /*Remove button padding in FF*/
+{ 
+    padding: 0 2px 0 0 ;
+}
+
 textarea {
-    margin: 0 5px;
-    margin-bottom: 5px;
     padding: 0 0.5em;
     font-weight: bold;
     border: 1px solid #999;
-    display: block;  
     resize: none;
 }
-
-label{
-    font-size: 14px;
+select {
     font-weight: bold;
-    margin: 0 0.3em;
+    border: 1px solid #999; 
+
+}
+@-moz-document url-prefix() { 
+    select {
+        padding-top:4px;
+    }
 }
 
-select{
-   padding:0; 
+select option {
+
 }
+// Trennlinie
+.select-hr { border-bottom: 1px dotted #000; }
 
 input[type="button"], input[type="submit"], input[type="reset"] {
-    display: inline-block;
+    font-weight: bold;
     cursor: pointer;
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
     -webkit-transition-property: box-shadow;
     transition-property: box-shadow;
     -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    /* font-size:0.9em; */  
+    transform: translateZ(0); 
+}
+input[type="text"]{
+    font-weight:normal;
 }
 
-input[type="submit"] {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover,input[type=checkbox],input[type=radio] {
     box-shadow:  0 0 0.05em 0.05em #003F7A, 0 0 1px rgba(0, 0, 0, 0);
     background-color: #DEE8FF;
 }
@@ -78,6 +116,48 @@ input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focu
 input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active {
     box-shadow:  0 0 0.05em 0.05em #003F7A, 0 0 1px rgba(0, 0, 0, 0);
     background-color: #D1E8FF;
+}
+
+.checkbox label , .radiobox label{  
+    position: relative;
+    display: inline-block;
+    cursor: pointer; 
+    padding-left: 25px; /* rückt den Label Text neben die Buttons */
+    margin:  0 0 5px 0;
+}
+/* Checkbox und Radio werden neu dargestellt */
+.checkbox label:before , .radiobox label:before {
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    content: "";
+    display: inline-block;
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 10px;        /* Zeichnet ein Circle relative zu den width/height Angaben */
+    border: 1px solid #999;
+}
+/* Checkbox/Radiobox is CHECKED */
+input[type=radio]:checked + label:before {
+    position: absolute;
+    background-image: url('../images/system/circle.png');
+    background-size: 10px 10px;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+input[type=checkbox]:checked + label:before {
+    position: absolute;
+    background-image: url('../images/system/tick.png');
+    background-size: 10px 10px;
+    background-repeat:no-repeat;
+    background-position: center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+}
+/* Checkbox/Radiobox is HOVERED */
+.checkbox label:hover::before,
+.radiobox label:hover::before{
+    background-color: #DEE8FF;
 }
 
 .login-container{

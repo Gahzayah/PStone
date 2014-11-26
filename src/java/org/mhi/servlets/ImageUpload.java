@@ -43,7 +43,7 @@ public class ImageUpload extends HttpServlet {
         if (fh.isMultipart()) {
             // Service Class for DB - Actions
             ImgService service = new ImgService();
-            // new Image
+            // new Images
             Images img = new Images();
             // Set Parameters
             img.setFileName(fh.getFileName());

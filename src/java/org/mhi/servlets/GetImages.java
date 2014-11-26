@@ -55,7 +55,7 @@ public class GetImages extends HttpServlet {
         if (imgByID != null) {
             
             Images img = service.getSingleImageByID(Long.valueOf(imgByID));
-            // Image as ByteArray
+            // Images as ByteArray
             byte[] imageRaw = img.getFileBlob();
 
             response.setContentLength(imageRaw.length);
@@ -70,7 +70,7 @@ public class GetImages extends HttpServlet {
             ImgCat cat = service.getCategoryByID(Long.valueOf(imgCatByID));
 
             byte[] imageRaw = cat.getFileBlob();
-            // Resize Image to 50px
+            // Resize Images to 50px
             imageRaw = ir.resize(imageRaw, 95, 95);
 
             response.setContentLength(imageRaw.length);

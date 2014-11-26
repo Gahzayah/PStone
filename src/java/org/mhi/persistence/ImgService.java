@@ -35,7 +35,7 @@ public class ImgService {
     public void setByteStringArray(String byteStringArray) {
         this.byteStringArray = byteStringArray;
     }
-
+    
     public List<Images> getImagesByCatID(String parameter) {
         List<Images> result = null;
         EntityManager em = getEnitityManagerFactory().createEntityManager();
@@ -209,4 +209,4 @@ public class ImgService {
         }
     }
 
-}
+    }

@@ -4,8 +4,8 @@
   <persistence-unit name="mysql-allinkl" transaction-type="RESOURCE_LOCAL">
     <!-- RESOURCE_LOCAL - create and manage Entity-Manager yourself -->
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>org.mhi.persistence.Images</class>
     <!-- JPA uses all Classes annotated as Enities -->
+    <class>org.mhi.persistence.Images</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="toplink.ddl-generation" value="create-tables"/>

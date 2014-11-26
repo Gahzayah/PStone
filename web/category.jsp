@@ -37,6 +37,10 @@
     </jsp:attribute>
     <jsp:body>
         <main>
+             <section>
+                <h3>Gallery</h3>
+                <hr>
+            </section>
             <section class='pix200'>
                 <ul class="gallery-nav">
                     <%-- Gallery-Liste--%>

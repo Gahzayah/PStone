@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="service" scope="page" class="org.mhi.persistence.ImgService" />
+<jsp:useBean id="galx" scope="page" class="org.mhi.dataquery.Service" />
 
 
 <t:genericPage titlepage="Title der Page">
@@ -47,62 +47,80 @@
         <main>
             <section>
                 <h3>Gallery</h3>
-                <p>Hier kommt das Bean: <c:out value="${service.imageGalleries}"></c:out></p>
+               <%-- <p>Hier kommt das Bean: <c:out value="${galx.galleryNameList}"></c:out></p> --%>
                 <hr>
             </section>
             <section class='pix200'>
                 <ul class="gallery-nav">
                     <%-- Ebene 1 - Galleryliste--%>
-                    <c:forEach items="${service.imageGalleries}" var="gallery">
+                    <c:forEach items="${galx.galleryList}" var="gallery">
                         <a href="<c:url value="/gallery?id=${gallery.imgGalleryID}"/>"><h4>${gallery.name}</h4></a>
-                                <%-- Ebene 2 - Kategorieliste--%>
-                                <c:forEach items="${requestScope.CatByGalID}" var="cat">
+                            <%-- Ebene 2 - Kategorieliste--%>                        
+                            <c:forEach items="${requestScope.servxGallery}" var="cat">
                                     <c:if test="${cat.gallery.name == gallery.name}"> 
-                                        <%-- Leere Kategorieliste behandeln--%>
+                                        <%-- Leere Kategorieliste behandeln --%>
                                         <c:choose>
                                             <c:when test="${fn:length(cat.images) < 1}">
-                                        <a href="#" class="zero"><li>${cat.name}</li></a>
+                                                <a href="#" class="zero"><li>${cat.name}</li></a>
                                             </c:when>
                                             <c:otherwise>
-                                        <a href="<c:url value="/gallery/${cat.name}?id=${cat.imgCatID}"/>"><li>${cat.name}</li> </a> 
+                                                <a href="<c:url value="/gallery/${cat.name}?id=${cat.imgCatID}"/>"><li>${cat.name}</li> </a> 
                                             </c:otherwise>
                                         </c:choose>
                                     </c:if>
-                                </c:forEach>
                             </c:forEach>
+                    </c:forEach>
                 </ul>
             </section>
-            <section class='pix600 borderLefto'>
-                <%-- Kategorie-Objekte--%>
-                <%-- Leere Galleryliste behandeln--%>
-                <c:if test="${empty requestScope.CatByGalID}">
-                    <p>Gallerie ist leer. Keine Kategorien vorhanden.</p>
-                </c:if>
-                <c:forEach items="${requestScope.CatByGalID}" var="cat">
-                    <div class="gallery">
-                        <c:choose>
-                            <c:when test="${fn:length(cat.images) < 1}">
-                                <div class="nailthumb-container square-thumb pix95">
-                                    <img src="<c:url value="/gallery/${cat.name}?imgCat=${cat.imgCatID}"/>" alt="${cat.name}" title="${cat.description}"/>
-                                </div>
-                                <div class="pix200 galleryinfo">
-                                    <a href="#" class="zero"/>"><h4>${cat.name}</h4></a>
-                                    <p>keine&nbsp;Photos</p>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="nailthumb-container square-thumb pix95">
-                                    <img src="<c:url value="/gallery/${cat.name}?imgCat=${cat.imgCatID}"/>" alt="${cat.name}" title="${cat.description}"/>
-                                </div>
-                                <div class="pix200 galleryinfo">
-                                    <a href="<c:url value="/gallery/${cat.name}?id=${cat.imgCatID}"/>"><h4>${cat.name}</h4></a>
-                                    <p>${fn:length(cat.images)}&nbsp;Photos</p>
-                                </div>
-                            </c:otherwise>
-                        </c:choose> 
-                    </div>
-                </c:forEach>            
-            </section>
+            <c:choose>
+                <c:when test="${empty requestScope.servxCategory}">
+                    <section class='pix600 borderLefto'>
+                    <%-- Kategorie-Objekte--%>
+                    <%-- Leere Galleryliste behandeln--%>
+                    <c:if test="${empty requestScope.servxGallery}">
+                        <p>Gallerie ist leer. Keine Kategorien vorhanden.</p>
+                    </c:if>
+                    <c:forEach items="${requestScope.servxGallery}" var="cat">
+                        <div class="gallery">
+                            <c:choose>
+                                <c:when test="${fn:length(cat.images) < 1}">
+                                    <div class="nailthumb-container square-thumb pix95">
+                                        <img src="<c:url value="/gallery/${cat.name}?imgCat=${cat.imgCatID}"/>" alt="${cat.name}" title="${cat.description}"/>
+                                    </div>
+                                    <div class="pix200 galleryinfo">
+                                        <a href="#" class="zero"/>"><h4>${cat.name}</h4></a>
+                                        <p>keine&nbsp;Photos</p>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="nailthumb-container square-thumb pix95">
+                                        <img src="<c:url value="/gallery/${cat.name}?imgCat=${cat.imgCatID}"/>" alt="${cat.name}" title="${cat.description}"/>
+                                    </div>
+                                    <div class="pix200 galleryinfo">
+                                        <a href="<c:url value="/gallery/${cat.name}?id=${cat.imgCatID}"/>"><h4>${cat.name}</h4></a>
+                                        <p>${fn:length(cat.images)}&nbsp;Photos</p>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose> 
+                        </div>
+                    </c:forEach>            
+                    </section>
+                </c:when>
+                <c:otherwise>
+                    <section class='pix600 borderLefto'>
+                        <%-- Kategorie-Images--%>
+                        <c:forEach items="${requestScope.imagesByCat}" var="img">
+                            <div class="nailthumb-container square-thumb">
+                                <a href="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" data-lightbox="${img.category.name}" data-title="${img.description}" class="link-image">
+                                    <img src="<c:url value="/gallery/${img.category.name}?img=${img.imageID}"/>" alt="${img.name}" title="${img.description}" />
+                                </a>
+                            </div>
+                        </c:forEach>            
+                    </section>
+                </c:otherwise>        
+            </c:choose>    
         </main> 
     </jsp:body>
 </t:genericPage>
+        
+        <%-- requestScope.CatByGalID     <c:out value="${galx.categoryList}"></c:out> --%>

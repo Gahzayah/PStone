@@ -76,9 +76,7 @@ public class ImgService {
     public List<ImgCat> getCategoriesByID(String parameter) {
         List<ImgCat> result = null;
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        @SuppressWarnings("JPQLValidation")
         TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q where q.gallery.imgGalleryID = " + parameter, ImgCat.class);
-        //     query.setParameter("id", parameter);
         result = query.getResultList();
         em.close();
         return result;

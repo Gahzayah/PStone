@@ -11,9 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.mhi.persistence.ImgCat;
+import org.mhi.dataquery.Service;
 import org.mhi.persistence.ImgGallery;
-import org.mhi.persistence.ImgService;
 
 /**
  *
@@ -22,7 +21,8 @@ import org.mhi.persistence.ImgService;
 public class GetGallery extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -31,28 +31,34 @@ public class GetGallery extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Which Gallery Entry ?
         String galleryID = request.getParameter("id");
+        String thumbCat = request.getParameter("imgCat");
+
         // Load Database Class
-        ImgService service = new ImgService();
-        // Lade Gallery Liste
-        List<ImgGallery> list = service.getImageGalleries();
-        request.setAttribute("GalleryList", list);
-        
-        if (galleryID != null) {
-            // List of Categories
-            List<ImgCat> listc = service.getCategoriesByID(request.getParameter("id"));
-            request.setAttribute("CatByGalID", listc);
-            request.getRequestDispatcher("/gallery.jsp").forward(request, response);
-        }else{
-            // List of Galleries
-            if(list!=null){
-                // Categorie-List First Element
-                List<ImgCat> listB = service.getCategoriesByID(list.get(0).getImgGalleryID().toString());
-                request.setAttribute("CatByGalID", listB);
-            }                   
+        Service service = new Service();
+
+        // Gallery
+        if (request.getRequestURI().endsWith("/gallery")) {
+            if(galleryID != null){
+                // A Specify Request for a Gallery
+                request.setAttribute("servxGallery", service.getCategoryByGalleryID(request.getParameter("id")));
+            } else {
+                //First Visit set the first category in the first gallery
+                List<ImgGallery> list = service.getGalleryList();
+                galleryID = list.get(0).getImgGalleryID().toString();
+
+                request.setAttribute("servxGallery", service.getCategoryByGalleryID(galleryID));
+            }
+            // Thumbnail from Category
+            if(thumbCat != null){
+                request.setAttribute("servxCategory", service.getImageListbyID(thumbCat));
+            }
             request.getRequestDispatcher("/gallery.jsp").forward(request, response);
         }
         
+        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

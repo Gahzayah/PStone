@@ -40,6 +40,10 @@
         <servlet-name>adminManager</servlet-name>
         <servlet-class>org.mhi.servlets.adminManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ArtMain</servlet-name>
+        <jsp-file>/admin/artmain.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreateCategory</servlet-name>
         <url-pattern>/admin/category/create</url-pattern>
@@ -86,6 +90,10 @@
     <servlet-mapping>
         <servlet-name>adminManager</servlet-name>
         <url-pattern>/admin/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArtMain</servlet-name>
+        <url-pattern>/admin/group</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

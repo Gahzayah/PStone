@@ -36,11 +36,13 @@ public class adminManager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileUploadException {
-        FileHandler fh = new FileHandler(request);
+        
         ServiceUpdate update = new ServiceUpdate();
         String create = request.getParameter("create");
+        String uri = request.getRequestURI();
 
         if (create != null) {
+            FileHandler fh = new FileHandler(request);
             switch (create) {
                 case "group":
                     ArtMain main = new ArtMain();
@@ -50,11 +52,8 @@ public class adminManager extends HttpServlet {
                 default:            /* Fehlermeldung */
             }
         }
-        
-        switch(request.getRequestURI()){
-            case "/group"   :   response.sendRedirect(request.getServletContext().getContextPath() + "/admin/group");
-                                break;
-            default:
+        if(uri.endsWith("/group")){
+            request.getRequestDispatcher("admin/artmain.jsp").forward(request, response);
         }
     }
 
@@ -73,7 +72,8 @@ public class adminManager extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (FileUploadException ex) {
-            Logger.getLogger(CreateGallery.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR");
+            Logger.getLogger(adminManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -91,7 +91,7 @@ public class adminManager extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (FileUploadException ex) {
-            Logger.getLogger(CreateGallery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(adminManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

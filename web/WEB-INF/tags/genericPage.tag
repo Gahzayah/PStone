@@ -67,8 +67,8 @@
                                     <a href="${pageContext.servletContext.contextPath}/admin/upload">  <li>Bilder hochladen</li></a>
                                 </ul>
                                 <ul>
-                                    <h4>Article</h4>
-                                    <a href="#"><li>schreiben</li></a>
+                                    <h4>Artikel verwalten</h4>
+                                    <a href="${pageContext.servletContext.contextPath}/admin/group"><li>Gruppe bearbeiten</li></a>
                                     <a href="#"><li>durchsuchen</li></a>
                                 </ul>
                                 <ul>

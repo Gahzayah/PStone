@@ -7,6 +7,7 @@ package org.mhi.database;
 
 import javax.persistence.EntityManager;
 import static org.mhi.database.DBUtil.getEnitityManagerFactory;
+import org.mhi.persistence.ArtMain;
 import org.mhi.persistence.Images;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgGallery;
@@ -16,7 +17,7 @@ import org.mhi.persistence.ImgGallery;
  * @author MaHi
  */
 public class ServiceUpdate {
-    
+
     public void newGallery(ImgGallery gal) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
 
@@ -24,6 +25,24 @@ public class ServiceUpdate {
             em.getTransaction().begin();
             // persist object - add to entity manager
             em.persist(gal);
+            // flush em - save to DB
+            em.flush();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            System.out.println("SQL-Exception: Transaction failed." + ex);
+        } finally {
+            em.close();
+
+        }
+    }
+
+    public void newGroup(ArtMain main) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            // persist object - add to entity manager
+            em.persist(main);
             // flush em - save to DB
             em.flush();
         } catch (Exception ex) {
@@ -70,4 +89,5 @@ public class ServiceUpdate {
             em.close();
         }
     }
+
 }

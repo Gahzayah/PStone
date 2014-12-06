@@ -10,7 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.mhi.persistence.ImgService;
+import org.mhi.database.ServiceDelete;
+import org.mhi.database.ServiceQuery;
 
 /**
  *
@@ -30,8 +31,9 @@ public class FileDelete extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String id = request.getParameter("id");
-
-        ImgService service = new ImgService();
+        
+        ServiceQuery query = new ServiceQuery();
+        ServiceDelete delete = new ServiceDelete();
         if (id != null) {
             String reqCtxt = request.getContextPath();
             String reqServpath = request.getServletPath();
@@ -40,11 +42,11 @@ public class FileDelete extends HttpServlet {
             /* URL Redirection */
             if (reqServpath.contains("gallery")) {
 
-                service.removeGallery(service.getGalleryByID(Long.valueOf(id)));
+                delete.removeGallery(query.getGalleryByID(Long.valueOf(id)));
                 response.sendRedirect(reqCtxt+"/admin/gallery");
             }
             if (reqServpath.contains("category")) {
-                service.removeCategory(service.getCategoryByID(Long.valueOf(id)));
+                delete.removeCategory(query.getCategoryByID(Long.valueOf(id)));
                 response.sendRedirect(reqCtxt+"/admin/category");
             }
 

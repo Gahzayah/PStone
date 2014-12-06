@@ -10,7 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%-- Import Class to access via EL --%>
-<jsp:useBean id="service" scope="page" class="org.mhi.persistence.ImgService" />
+<jsp:useBean id="galx" scope="page" class="org.mhi.database.ServiceQuery" />
 
 <t:genericPage titlepage="Title der Page">
     <jsp:attribute name="head">
@@ -32,7 +32,7 @@
             <form action="${pageContext.servletContext.contextPath}/admin/category/create" enctype="multipart/form-data" method="POST">
                 <select name="gallery" onchange="this.className = this.options[this.selectedIndex].className" class="light" required>
                     <option selected>Gallery wählen</option>
-                    <c:forEach items="${service.imageGalleries}" var="gal">
+                    <c:forEach items="${galx.galleryList}" var="gal">
                         <option class="dark" value="${gal.imgGalleryID}">${gal.name}</option>
                     </c:forEach>
                 </select>
@@ -80,7 +80,7 @@
             <hr>
             <h3>Übersicht aller Kategorien</h3>
             <c:choose>
-                <c:when test="${not empty service.imageCategories}">
+                <c:when test="${not empty galx.categoryList}">
                     <p class="intro">Achtung! Beim löschen einer Kategorie werden alle zugeordneten Bilder gelöscht.</p>
                     <hr/>
                     <table class="output">
@@ -93,7 +93,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${service.imageCategories}" var="cat">
+                            <c:forEach items="${galx.categoryList}" var="cat">
                                 <tr>
                                     <td>${cat.name}</td>
                                     <td>${cat.description}</td>

@@ -10,7 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%-- Import Class to access via EL --%>
-<jsp:useBean id="service" scope="page" class="org.mhi.persistence.ImgService" />
+<jsp:useBean id="galx" scope="page" class="org.mhi.database.ServiceQuery" />
 
 <t:genericPage titlepage="Title der Page">
     <jsp:attribute name="head">
@@ -34,7 +34,7 @@
             <form action="${pageContext.servletContext.contextPath}/admin/images/upload" enctype="multipart/form-data" method="POST"> 
                 <%-- Image Categorie auswählen --%>
                 <select name="category">
-                    <c:forEach items="${service.imageCategories}" var="cat">
+                    <c:forEach items="${galx.categoryList}" var="cat">
                         <option value="${cat.imgCatID}">${cat.name}</option>
                     </c:forEach>
                 </select>

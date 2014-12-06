@@ -15,10 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.IOUtils;
-import org.mhi.persistence.FileHandler;
+import org.mhi.database.ServiceQuery;
+import org.mhi.database.ServiceUpdate;
+import org.mhi.imageutilities.FileHandler;
 import org.mhi.persistence.Images;
 import org.mhi.persistence.ImgCat;
-import org.mhi.persistence.ImgService;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -42,7 +43,8 @@ public class ImageUpload extends HttpServlet {
 
         if (fh.isMultipart()) {
             // Service Class for DB - Actions
-            ImgService service = new ImgService();
+            ServiceQuery query = new ServiceQuery();
+            ServiceUpdate update = new ServiceUpdate();
             // new Images
             Images img = new Images();
             // Set Parameters
@@ -53,10 +55,10 @@ public class ImageUpload extends HttpServlet {
             img.setFileSize("" + fh.getFileSize());
             img.setcTyp(fh.getContentType());
             // Relationship to Category
-            ImgCat cat = service.getCategoryByID(Long.valueOf(fh.getParameter("category")));
+            ImgCat cat = query.getCategoryByID(Long.valueOf(fh.getParameter("category")));
             img.setCategory(cat);
             // Persist to Database
-            service.insertImage(img);
+            update.insertImage(img);
             
             response.sendRedirect(request.getServletContext().getContextPath() + "/admin/upload");
          

@@ -3,30 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.mhi.dataquery;
+package org.mhi.database;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import org.mhi.persistence.Image;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgGallery;
-import static org.mhi.persistence.DBUtil.getEnitityManagerFactory;
+import static org.mhi.database.DBUtil.getEnitityManagerFactory;
+import org.mhi.persistence.Images;
 
 /**
  *
  * @author MaHi
  */
-public class Service {
+public class ServiceQuery {
 
     private List<ImgGallery> galleryList = null;
     private List<ImgCat> categoryList = null;
     private List<ImgCat> categoryByGalleryID = null;
-    private List<Image> imageList = null;
+    private List<Images> imageList = null;
 
     ImgGallery gallery = null;
     ImgCat category = null;
-    Image image = null;
+    private Images image = null;
 
     /**
      * @return the galleryList
@@ -46,6 +46,20 @@ public class Service {
         this.galleryList = galleryList;
     }
 
+    public ImgGallery getGalleryByID(long ID) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        gallery = em.find(ImgGallery.class, ID);
+        em.close();
+
+        return gallery;
+    }
+
+    public void setGalleryByID(ImgGallery gallery) {
+        this.gallery = gallery;
+    }
+    
+    
+
     /**
      * @return the categoryList
      */
@@ -64,10 +78,32 @@ public class Service {
         this.categoryList = categoryList;
     }
     
-        /**
-     * @return the categoryByGalleryID
+    /**
+     * 
+     * @param ID
+     * @return 
      */
-    public List<ImgCat> getCategoryByGalleryID(String ID) {
+    public ImgCat getCategoryByID(Long ID) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        category = em.find(ImgCat.class, ID);
+        em.close();
+
+        return category;
+    }
+    
+    /**
+     * @param category the category to set
+     */
+    public void setCategoryByID(ImgCat category) {
+        this.category = category;
+    }
+    
+    /**
+     * 
+     * @param ID
+     * @return 
+     */
+    public List<ImgCat> getCategoryListByID(String ID) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
         TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q where q.gallery.imgGalleryID = " + ID, ImgCat.class);
         categoryByGalleryID = query.getResultList();
@@ -78,28 +114,17 @@ public class Service {
     /**
      * @param categoryByGalleryID the categoryByGalleryID to set
      */
-    public void setCategoryGalleryID(List<ImgCat> categoryByGalleryID) {
+    public void setCategoryListByID(List<ImgCat> categoryByGalleryID) {
         this.categoryByGalleryID = categoryByGalleryID;
-    }
-
-    /**
-     * @return the imageList
-     */
-    public List<Image> getImageList() {
-        EntityManager em = getEnitityManagerFactory().createEntityManager();
-        TypedQuery<Image> query = em.createQuery("", Image.class);
-        imageList = query.getResultList();
-        em.close();
-        return imageList;
     }
 
     /**
      * @param ID
      * @return the imageList
      */
-    public List<Image> getImageListbyID(String ID) {
+    public List<Images> getImageListbyID(String ID) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        TypedQuery<Image> query = em.createQuery("Select q from Images q where q.category.imgCatID = " + ID, Image.class);
+        TypedQuery<Images> query = em.createQuery("Select q from Images q where q.category.imgCatID = " + ID, Images.class);
         imageList = query.getResultList();
         em.close();
         return imageList;
@@ -108,9 +133,27 @@ public class Service {
     /**
      * @param imageList the imageList to set
      */
-    public void setImageList(List<Image> imageList) {
+    public void setImageList(List<Images> imageList) {
         this.imageList = imageList;
     }
+
+    /**
+     * @return the image
+     */
+    public Images getImageByID(long ID) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        image = em.find(Images.class, ID);;
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImageByID(Images image) {
+        this.image = image;
+    }
+    
+    
 
 
 

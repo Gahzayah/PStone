@@ -14,10 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.IOUtils;
-import org.mhi.persistence.FileHandler;
+import org.mhi.database.ServiceQuery;
+import org.mhi.database.ServiceUpdate;
+import org.mhi.imageutilities.FileHandler;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgGallery;
-import org.mhi.persistence.ImgService;
 
 /**
  *
@@ -39,7 +40,9 @@ public class CreateCategory extends HttpServlet {
         FileHandler fh = new FileHandler(request);
 
         if (fh.isMultipart()) {
-            ImgService service = new ImgService();
+            ServiceQuery query = new ServiceQuery();
+            ServiceUpdate update = new ServiceUpdate();
+
             // New Category
             ImgCat cat = new ImgCat();
             // Set Parameter
@@ -47,10 +50,10 @@ public class CreateCategory extends HttpServlet {
             cat.setDescription(fh.getParameter("newDescription"));
             cat.setFileBlob(IOUtils.toByteArray(fh.getFile("files")));
             // Relationship to Gallery
-            ImgGallery gal = service.getGalleryByID(Long.valueOf(fh.getParameter("gallery")));
+            ImgGallery gal = query.getGalleryByID(Long.valueOf(fh.getParameter("gallery")));
             cat.setGallery(gal);
             // Persist to Database
-            service.newCategory(cat);
+            update.newCategory(cat);
             
             response.sendRedirect(request.getServletContext().getContextPath() + "/admin/category");
 

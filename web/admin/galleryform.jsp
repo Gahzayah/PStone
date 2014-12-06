@@ -11,7 +11,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%-- Import Class to access via EL --%>
-<jsp:useBean id="service" scope="page" class="org.mhi.persistence.ImgService" />
+<jsp:useBean id="galx" scope="page" class="org.mhi.database.ServiceQuery" />
 
 <t:genericPage titlepage="Title der Page">
     <jsp:attribute name="head">
@@ -47,7 +47,7 @@
             </script>
             <h3>Alle erstellten Gallerien</h3>
             <c:choose>
-                <c:when test="${not empty service.imageGalleries}">
+                <c:when test="${not empty galx.galleryList}">
                     <p class="warning">Achtung! Beim löschen einer Gallerie werden alle zugeordneten Kategorie sowie deren Bilder gelöscht.</p>
                     <table class="output">
                         <thead>
@@ -58,7 +58,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${service.imageGalleries}" var="gal">
+                            <c:forEach items="${galx.galleryList}" var="gal">
                                 <tr><td><b>${gal.name}</b></td>
                                     <td>${gal.description}</td>
                                     <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/gallery/delete?id=${gal.imgGalleryID}"><i class="fa fa-times-circle"/></a></td>

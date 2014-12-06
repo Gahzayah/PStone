@@ -4,11 +4,11 @@
     Author     : MaHi
 --%>
 
-
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="service" scope="page" class="org.mhi.persistence.ImgService" />
+<jsp:useBean id="galx" scope="page" class="org.mhi.database.ServiceQuery" />
 
 <t:genericPage titlepage="Title der Page">
     <jsp:attribute name="head">
@@ -43,17 +43,25 @@
             </section>
             <section class='pix200'>
                 <ul class="gallery-nav">
-                    <%-- Gallery-Liste--%>
-                    <c:forEach items="${service.imageGalleries}" var="gal">
-                        <a href="<c:url value="/gallery?id=${gal.imgGalleryID}"/>"><h4>${gal.name}</h4></a>
-                        <%-- Kategorie-Liste--%>
-                        <c:forEach items="${requestScope.CatByGalID}" var="cat">
-                            <c:if test="${cat.gallery.name == gal.name}"> 
-                                <a href="<c:url value="/gallery/${cat.name}?id=${cat.imgCatID}"/>"><li>${cat.name}</li> </a>
-                            </c:if>
-                        </c:forEach>
+                    <%-- Ebene 1 - Galleryliste--%>
+                    <c:forEach items="${galx.galleryList}" var="gallery">
+                        <a href="<c:url value="/gallery?id=${gallery.imgGalleryID}"/>"><h4>${gallery.name}</h4></a>
+                            <%-- Ebene 2 - Kategorieliste--%>                        
+                            <c:forEach items="${requestScope.servxGallery}" var="cat">
+                                    <c:if test="${cat.gallery.name == gallery.name}"> 
+                                        <%-- Leere Kategorieliste behandeln --%>
+                                        <c:choose>
+                                            <c:when test="${fn:length(cat.images) < 1}">
+                                                <a href="#" class="zero"><li>${cat.name}</li></a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="<c:url value="/gallery/${cat.name}?id=${cat.imgCatID}"/>"><li>${cat.name}</li> </a> 
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:if>
+                            </c:forEach>
                     </c:forEach>
-                </ul>
+                </ul>              
             </section>
             <section class='pix600 borderLefto'>
                 <%-- Kategorie-Images--%>

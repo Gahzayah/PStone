@@ -6,18 +6,15 @@
 package org.mhi.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.mhi.database.ServiceQuery;
 import org.mhi.imageutilities.ImageResizer;
 import org.mhi.persistence.Images;
 import org.mhi.persistence.ImgCat;
-import org.mhi.persistence.ImgService;
 
 /**
  *
@@ -35,7 +32,7 @@ public class GetImages extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ImgService service = new ImgService();
+        ServiceQuery service = new ServiceQuery();
 
         String imgCatByID = request.getParameter("imgCat");
         String imgByID = request.getParameter("img");
@@ -43,10 +40,10 @@ public class GetImages extends HttpServlet {
 
         // IMAGE LIST
         if (imgListByID != null) {
-            List<Images> list = service.getImagesByCatID(imgListByID);
+            List<Images> list = service.getImageListbyID(imgListByID);
             if (list != null && !list.isEmpty()) {
-                List<ImgCat> listB = service.getCategoriesByID(list.get(0).getCategory().getGallery().getImgGalleryID().toString());
-                request.setAttribute("CatByGalID", listB);
+                List<ImgCat> listB = service.getCategoryListByID(list.get(0).getCategory().getGallery().getImgGalleryID().toString());
+                request.setAttribute("servxGallery", listB);
             }
             request.setAttribute("imagesByCat", list);
             request.getRequestDispatcher("/category.jsp").forward(request, response);
@@ -54,7 +51,7 @@ public class GetImages extends HttpServlet {
         // IMAGE BY ID
         if (imgByID != null) {
             
-            Images img = service.getSingleImageByID(Long.valueOf(imgByID));
+            Images img = service.getImageByID(Long.valueOf(imgByID));
             // Images as ByteArray
             byte[] imageRaw = img.getFileBlob();
 

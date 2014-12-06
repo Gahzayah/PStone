@@ -7,7 +7,6 @@
 package org.mhi.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -15,9 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileUploadException;
-import org.mhi.persistence.FileHandler;
+import org.mhi.database.ServiceUpdate;
+import org.mhi.imageutilities.FileHandler;
 import org.mhi.persistence.ImgGallery;
-import org.mhi.persistence.ImgService;
 
 /**
  *
@@ -38,13 +37,13 @@ public class CreateGallery extends HttpServlet {
             throws ServletException, IOException, FileUploadException {
         
         FileHandler fh = new FileHandler(request);
-        ImgService service = new ImgService();
+        ServiceUpdate update = new ServiceUpdate();
         
         ImgGallery gal = new ImgGallery();
         gal.setName(fh.getParameter("newGallery"));
         gal.setDescription(fh.getParameter("newDescription"));
         
-        service.newGallery(gal);
+        update.newGallery(gal);
         
         response.sendRedirect(request.getServletContext().getContextPath() + "/admin/gallery");
 

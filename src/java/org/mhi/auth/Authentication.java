@@ -47,7 +47,7 @@ public class Authentication extends HttpServlet {
             switch (reqServpath) {
                 case "/admin/logout":
                     session.invalidate();
-                    response.sendRedirect("/psg");
+                    response.sendRedirect(request.getContextPath());
                     break;
                 default:
                     response.sendRedirect(reqCtxt + reqServpath);

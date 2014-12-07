@@ -7,6 +7,7 @@ package org.mhi.database;
 
 import javax.persistence.EntityManager;
 import static org.mhi.database.DBUtil.getEnitityManagerFactory;
+import org.mhi.persistence.ArtMain;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgGallery;
 
@@ -50,6 +51,21 @@ public class ServiceDelete {
 
         }
 
+    }
+
+    public void removeGroup(ArtMain artMain) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.remove(em.merge(artMain));
+            em.flush();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            System.out.println("SQL-Exception: Transaction failed." + ex);
+        } finally {
+            em.close();
+
+        }
     }
 
 }

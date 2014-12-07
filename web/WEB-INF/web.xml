@@ -41,8 +41,8 @@
         <servlet-class>org.mhi.servlets.adminManager</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ArtMain</servlet-name>
-        <jsp-file>/admin/artmain.jsp</jsp-file>
+        <servlet-name>JSP:ArtMain</servlet-name>
+        <jsp-file>/admin/createGroup.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateCategory</servlet-name>
@@ -92,7 +92,7 @@
         <url-pattern>/admin/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ArtMain</servlet-name>
+        <servlet-name>JSP:ArtMain</servlet-name>
         <url-pattern>/admin/group</url-pattern>
     </servlet-mapping>
     <session-config>

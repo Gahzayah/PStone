@@ -28,7 +28,7 @@ public class ArtCat implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long artCatID;
     @OneToMany(mappedBy = "category", orphanRemoval = true)
-    private List<Artikel> artikel = new ArrayList();
+    private List<Article> artikel = new ArrayList();
     @ManyToOne
     private ArtMain main;
     private String name;
@@ -43,11 +43,11 @@ public class ArtCat implements Serializable {
         this.artCatID = artCatID;
     }
 
-    public List<Artikel> getArtikel() {
+    public List<Article> getArtikel() {
         return artikel;
     }
 
-    public void setArtikel(List<Artikel> artikel) {
+    public void setArtikel(List<Article> artikel) {
         this.artikel = artikel;
     }
 

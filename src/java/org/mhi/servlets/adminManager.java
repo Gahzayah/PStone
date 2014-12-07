@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileUploadException;
+import org.mhi.database.ServiceDelete;
+import org.mhi.database.ServiceQuery;
 import org.mhi.database.ServiceUpdate;
 import org.mhi.imageutilities.FileHandler;
 import org.mhi.persistence.ArtMain;
@@ -36,14 +38,17 @@ public class adminManager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileUploadException {
-        
+        ServiceQuery query = new ServiceQuery();
         ServiceUpdate update = new ServiceUpdate();
-        String create = request.getParameter("create");
-        String uri = request.getRequestURI();
+        ServiceDelete delete = new ServiceDelete();
+        
+        String sDelete = request.getParameter("delete");
+        String sCreate = request.getParameter("create");
+        String sUri = request.getRequestURI();
 
-        if (create != null) {
+        if (sCreate != null) {
             FileHandler fh = new FileHandler(request);
-            switch (create) {
+            switch (sCreate) {
                 case "group":
                     ArtMain main = new ArtMain();
                     main.setName(fh.getParameter("newGroup"));
@@ -51,9 +56,20 @@ public class adminManager extends HttpServlet {
                     break;
                 default:            /* Fehlermeldung */
             }
+            request.getRequestDispatcher("admin/creategroup.jsp").forward(request, response);
         }
-        if(uri.endsWith("/group")){
-            request.getRequestDispatcher("admin/artmain.jsp").forward(request, response);
+
+        /**
+         * For All Group Interactions
+         */
+        if (sUri.endsWith("/group")) {
+            // Delete Group     
+            if (sDelete != null) {
+                delete.removeGroup(new ArtMain());
+                delete.removeGroup(query.getGroupByID(Long.valueOf(sDelete)));
+
+                request.getRequestDispatcher("admin/creategroup.jsp").forward(request, response);
+            }
         }
     }
 

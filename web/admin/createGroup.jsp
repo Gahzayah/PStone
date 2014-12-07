@@ -30,7 +30,7 @@
         <main>
             <h2>Gruppe anlegen</h2>
             <hr/>
-            <form action="${pageContext.servletContext.contextPath}/admin/article/group?create=group" enctype="multipart/form-data" method="POST">
+            <form action="${pageContext.servletContext.contextPath}/admin/group?create=group" enctype="multipart/form-data" method="POST">
                 <input type="text" name="newGroup" placeholder="Neue Gruppe" size="20" required>
                 <input type="submit" name="commit" value="speichern">
             </form>
@@ -46,7 +46,7 @@
             </script>
             <h3>Alle erstellten Gallerien</h3>
             <c:choose>
-                <c:when test="${not empty galx.galleryList}">
+                <c:when test="${not empty galx.groupList}">
                     <p class="warning">Achtung! Beim löschen einer Gruppe werden alle zugeordneten Artikel sowie deren Bilder gelöscht.</p>
                     <table class="output">
                         <thead>
@@ -57,10 +57,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${galx.galleryList}" var="gal">
+                            <c:forEach items="${galx.groupList}" var="gal">
                                 <tr><td><b>${gal.name}</b></td>
-                                    <td>${gal.description}</td>
-                                    <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/gallery/delete?id=${gal.imgGalleryID}"><i class="fa fa-times-circle"/></a></td>
+                                    <td>wird nicht benötigt.</td>
+                                    <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/group?delete=${gal.artMainID}"><i class="fa fa-times-circle"/></a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

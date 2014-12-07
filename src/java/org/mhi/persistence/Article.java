@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  * @author MaHi
  */
 @Entity
-public class Artikel implements Serializable{
+public class Article implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long imageID;

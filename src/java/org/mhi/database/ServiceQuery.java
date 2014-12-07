@@ -11,6 +11,9 @@ import javax.persistence.TypedQuery;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgGallery;
 import static org.mhi.database.DBUtil.getEnitityManagerFactory;
+import org.mhi.persistence.ArtCat;
+import org.mhi.persistence.ArtMain;
+import org.mhi.persistence.Article;
 import org.mhi.persistence.Images;
 
 /**
@@ -19,13 +22,23 @@ import org.mhi.persistence.Images;
  */
 public class ServiceQuery {
 
+    // Objects for Gallerie
     private List<ImgGallery> galleryList = null;
     private List<ImgCat> categoryList = null;
     private List<ImgCat> categoryByGalleryID = null;
     private List<Images> imageList = null;
 
-    ImgGallery gallery = null;
-    ImgCat category = null;
+    // Objects for News/Article
+    private List<ArtMain> groupList = null;
+    private List<ArtCat> categoryAList = null;
+    private List<Article> articleList = null;
+
+    private ArtMain group = null;
+    private ArtCat categoryA = null;
+    private Article article = null;
+
+    private ImgGallery gallery = null;
+    private ImgCat category = null;
     private Images image = null;
 
     /**
@@ -54,11 +67,13 @@ public class ServiceQuery {
         return gallery;
     }
 
+    /**
+     *
+     * @param gallery the gallery to set
+     */
     public void setGalleryByID(ImgGallery gallery) {
         this.gallery = gallery;
     }
-    
-    
 
     /**
      * @return the categoryList
@@ -77,11 +92,11 @@ public class ServiceQuery {
     public void setCategoryList(List<ImgCat> categoryList) {
         this.categoryList = categoryList;
     }
-    
+
     /**
-     * 
+     *
      * @param ID
-     * @return 
+     * @return
      */
     public ImgCat getCategoryByID(Long ID) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
@@ -90,18 +105,18 @@ public class ServiceQuery {
 
         return category;
     }
-    
+
     /**
      * @param category the category to set
      */
     public void setCategoryByID(ImgCat category) {
         this.category = category;
     }
-    
+
     /**
-     * 
+     *
      * @param ID
-     * @return 
+     * @return
      */
     public List<ImgCat> getCategoryListByID(String ID) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
@@ -152,9 +167,116 @@ public class ServiceQuery {
     public void setImageByID(Images image) {
         this.image = image;
     }
-    
-    
 
+    /**
+     * @return the groupList
+     */
+    public List<ArtMain> getGroupList() {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        TypedQuery<ArtMain> query = em.createQuery("Select q from ArtMain q", ArtMain.class);
+        groupList = query.getResultList();
+        em.close();
+        return groupList;
+    }
 
+    /**
+     * @param groupList the groupList to set
+     */
+    public void setGroupList(List<ArtMain> groupList) {
+        this.groupList = groupList;
+    }
+    
+    /**
+     * 
+     * @param ID
+     * @return 
+     */
+    public ArtMain getGroupByID(Long ID) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        group = em.find(ArtMain.class, ID);
+        em.close();
+
+        return group;
+    }
+    /**
+     * @param group the group to set
+     */
+    public void setGroupByID(ArtMain group) {
+        this.group = group;
+    }
+
+    /**
+     * @return the categoryAList
+     */
+    public List<ArtCat> getCategoryAList() {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        TypedQuery<ArtCat> query = em.createQuery("Select q from ArtCat q", ArtCat.class);
+        categoryAList = query.getResultList();
+        em.close();
+        return categoryAList;
+    }
+
+    /**
+     * @param categoryAList the categoryAList to set
+     */
+    public void setCategoryAList(List<ArtCat> categoryAList) {
+        this.categoryAList = categoryAList;
+    }
+
+    /**
+     * @return the articleList
+     */
+    public List<Article> getArticleList() {
+        return articleList;
+    }
+
+    /**
+     * @param articleList the articleList to set
+     */
+    public void setArticleList(List<Article> articleList) {
+        this.articleList = articleList;
+    }
+
+    /**
+     * @return the group
+     */
+    public ArtMain getGroup() {
+        return group;
+    }
+
+    /**
+     * @param group the group to set
+     */
+    public void setGroup(ArtMain group) {
+        this.group = group;
+    }
+
+    /**
+     * @return the categoryA
+     */
+    public ArtCat getCategoryA() {
+        return categoryA;
+    }
+
+    /**
+     * @param categoryA the categoryA to set
+     */
+    public void setCategoryA(ArtCat categoryA) {
+        this.categoryA = categoryA;
+    }
+
+    /**
+     * @return the article
+     */
+    public Article getArticle() {
+        return article;
+    }
+
+    /**
+     * @param article the article to set
+     */
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 
 }

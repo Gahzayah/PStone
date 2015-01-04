@@ -69,7 +69,8 @@
                                 <ul>
                                     <h4>Artikel verwalten</h4>
                                     <a href="${pageContext.servletContext.contextPath}/admin/group"><li>Gruppe bearbeiten</li></a>
-                                    <a href="#"><li>durchsuchen</li></a>
+                                    <a href="#"><li>Artikel durchsuchen</li></a>
+                                    <a href="${pageContext.servletContext.contextPath}/admin/article"><li>Artikel schreiben</li></a>
                                 </ul>
                                 <ul>
                                     <h4>Statistik</h4>

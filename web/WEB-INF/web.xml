@@ -37,12 +37,12 @@
         <servlet-class>org.mhi.servlets.GetImages</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>adminManager</servlet-name>
-        <servlet-class>org.mhi.servlets.adminManager</servlet-class>
+        <servlet-name>jsp:createGroup</servlet-name>
+        <jsp-file>/admin/createGroup.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>JSP:ArtMain</servlet-name>
-        <jsp-file>/admin/createGroup.jsp</jsp-file>
+        <servlet-name>jsp:createArticle</servlet-name>
+        <jsp-file>/admin/createArticle.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateCategory</servlet-name>
@@ -88,12 +88,14 @@
         <url-pattern>/gallery/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>adminManager</servlet-name>
-        <url-pattern>/admin/*</url-pattern>
+        <servlet-name>jsp:createGroup</servlet-name>
+        <url-pattern>/admin/group</url-pattern>
+        <url-pattern>/admin/creategroup.jsp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>JSP:ArtMain</servlet-name>
-        <url-pattern>/admin/group</url-pattern>
+        <servlet-name>jsp:createArticle</servlet-name>
+        <url-pattern>/admin/article</url-pattern>
+        <url-pattern>/admin/createarticle.jsp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

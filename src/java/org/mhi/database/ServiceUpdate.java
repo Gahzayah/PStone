@@ -7,7 +7,9 @@ package org.mhi.database;
 
 import javax.persistence.EntityManager;
 import static org.mhi.database.DBUtil.getEnitityManagerFactory;
+import org.mhi.persistence.ArtCat;
 import org.mhi.persistence.ArtMain;
+import org.mhi.persistence.Article;
 import org.mhi.persistence.Images;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgGallery;
@@ -81,6 +83,34 @@ public class ServiceUpdate {
         try {
             em.getTransaction().begin();
             em.persist(img);
+            em.flush();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            System.out.println("SQL-Exception: Transaction failed." + ex);
+        } finally {
+            em.close();
+        }
+    }
+
+    public void newArticle(Article article) {
+        EntityManager em = DBUtil.getEnitityManagerFactory().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(article);
+            em.flush();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            System.out.println("SQL-Exception: Transaction failed." + ex);
+        } finally {
+            em.close();
+        }
+    }
+
+    public void newCatGroup(ArtCat artcat) {
+        EntityManager em = DBUtil.getEnitityManagerFactory().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(artcat);
             em.flush();
         } catch (Exception ex) {
             em.getTransaction().rollback();

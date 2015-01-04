@@ -7,9 +7,11 @@ package org.mhi.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,30 +20,20 @@ import org.mhi.database.ServiceDelete;
 import org.mhi.database.ServiceQuery;
 import org.mhi.database.ServiceUpdate;
 import org.mhi.imageutilities.FileHandler;
+import org.mhi.persistence.ArtCat;
 import org.mhi.persistence.ArtMain;
+import org.mhi.persistence.Article;
 
-/**
- *
- * @author MaHi
- */
+@WebServlet("/admin/*")
 public class adminManager extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     * @throws org.apache.commons.fileupload.FileUploadException
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileUploadException {
+
         ServiceQuery query = new ServiceQuery();
         ServiceUpdate update = new ServiceUpdate();
         ServiceDelete delete = new ServiceDelete();
-        
+
         String sDelete = request.getParameter("delete");
         String sCreate = request.getParameter("create");
         String sUri = request.getRequestURI();
@@ -51,24 +43,39 @@ public class adminManager extends HttpServlet {
             switch (sCreate) {
                 case "group":
                     ArtMain main = new ArtMain();
-                    main.setName(fh.getParameter("newGroup"));
+                    main.setName(fh.getParameter("group"));
                     update.newGroup(main);
                     break;
+                case "ugroup":
+                    ArtCat artcat = new ArtCat();
+                    artcat.setName(fh.getParameter("ugroup"));
+                    update.newCatGroup(artcat);
+                    break;
+                case "article":
+                    Article article = new Article();
+                    article.setTitel("Title 1");
+                    article.setText(fh.getParameter("article"));
+                    article.setTimeStmp(new Date());
+                    update.newArticle(article);
+                    break;
                 default:            /* Fehlermeldung */
+
             }
-            request.getRequestDispatcher("admin/creategroup.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/creategroup.jsp").forward(request, response);
         }
 
         /**
          * For All Group Interactions
          */
-        if (sUri.endsWith("/group")) {
+        if (sUri.endsWith("/action")) {
             // Delete Group     
             if (sDelete != null) {
                 delete.removeGroup(new ArtMain());
                 delete.removeGroup(query.getGroupByID(Long.valueOf(sDelete)));
 
-                request.getRequestDispatcher("admin/creategroup.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/creategroup.jsp").forward(request, response);
+            } else {
+
             }
         }
     }

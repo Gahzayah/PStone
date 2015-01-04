@@ -30,20 +30,10 @@
         <main>
             <h2>Gruppe anlegen</h2>
             <hr/>
-            <form action="${pageContext.servletContext.contextPath}/admin/group?create=group" enctype="multipart/form-data" method="POST">
-                <input type="text" name="newGroup" placeholder="Neue Gruppe" size="20" required>
+            <form action="${pageContext.servletContext.contextPath}/admin/group/action?create=group" enctype="multipart/form-data" method="POST">
+                <input type="text" name="group" placeholder="Neue Gruppe" size="20" required>
                 <input type="submit" name="commit" value="speichern">
             </form>
-            <script>
-                $(document).ready(function() {
-                    $("form").validate({
-                        errorPlacement: function() {
-                            /* Max 14 Charakters newGallery */
-                            return false;
-                        }
-                    });
-                });
-            </script>
             <h3>Alle erstellten Gallerien</h3>
             <c:choose>
                 <c:when test="${not empty galx.groupList}">
@@ -60,7 +50,39 @@
                             <c:forEach items="${galx.groupList}" var="gal">
                                 <tr><td><b>${gal.name}</b></td>
                                     <td>wird nicht benötigt.</td>
-                                    <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/group?delete=${gal.artMainID}"><i class="fa fa-times-circle"/></a></td>
+                                    <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/group/action?delete=${gal.artMainID}"><i class="fa fa-times-circle"/></a></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>Keine Gallery vorhanden.</p>
+                </c:otherwise>
+            </c:choose>
+            <h2>Untergruppe anlegen</h2>
+            <hr/>
+            <form action="${pageContext.servletContext.contextPath}/admin/group/action?create=ugroup" enctype="multipart/form-data" method="POST">
+                <input type="text" name="ugroup" placeholder="Neue Untergruppe" size="20" required>
+                <input type="submit" name="commit" value="speichern">
+            </form>
+            <h3>Alle erstellten Gallerien</h3>
+            <c:choose>
+                <c:when test="${not empty galx.groupList}">
+                    <p class="warning">Achtung! Beim löschen einer Gruppe werden alle zugeordneten Artikel sowie deren Bilder gelöscht.</p>
+                    <table class="output">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Beschreibung</th>
+                                <th class="center">Löschen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${galx.groupList}" var="gal">
+                                <tr><td><b>${gal.name}</b></td>
+                                    <td>wird nicht benötigt.</td>
+                                    <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/group/action?delete=${gal.artMainID}"><i class="fa fa-times-circle"/></a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

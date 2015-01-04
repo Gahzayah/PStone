@@ -49,7 +49,7 @@ input[type="reset"]{
 
 /* Hide Elements for Customizing */
 input[type=radio],
-input[type=checkbox],
+/*input[type=checkbox],*/
 input[type=file]{
     display: none;
 }
@@ -121,7 +121,7 @@ input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:ac
     position: relative;
     display: inline-block;
     cursor: pointer; 
-    padding-left: 25px; /* rückt den Label Text neben die Buttons */
+    padding-left: 25px; /* r�ckt den Label Text neben die Buttons */
     margin:  0 0 5px 0;
 }
 /* Checkbox und Radio werden neu dargestellt */

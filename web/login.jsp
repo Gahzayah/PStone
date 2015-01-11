@@ -20,7 +20,7 @@
     <div class="login-container">
        <form method="POST" action="j_security_check">
             <label for="j_username">Username:</label>
-            <input type="text" name="j_username" /><br/>
+            <input type="text" name="j_username" />
             <label for="j_password">Password:</label>
             <input type="password" name="j_password" />
             <div class="checkbox">

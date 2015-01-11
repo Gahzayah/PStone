@@ -49,7 +49,7 @@ input[type="reset"]{
 
 /* Hide Elements for Customizing */
 input[type=radio],
-/*input[type=checkbox],*/
+input[type=checkbox],
 input[type=file]{
     display: none;
 }
@@ -163,7 +163,8 @@ input[type=checkbox]:checked + label:before {
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -140px;
+    width: 350px;
+    margin-top: -300px;
     margin-left: -170px;
     background: #eee;
     border-radius: 3px;
@@ -189,14 +190,15 @@ input[type=checkbox]:checked + label:before {
 
 .login-container form {
     margin: 0 auto;
-    padding:40px;
+    padding: 25px;
 }
 .login-container input[type=text], .login-container input[type=password] {
-    width: 200px;
+    width: 300px;
     height: 33px;
 }
 .login-container input[type=submit] {
     height: 33px;
+    margin: 0;
 }
 
 

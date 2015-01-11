@@ -30,7 +30,7 @@ public class ServiceQuery {
 
     // Objects for News/Article
     private List<ArtMain> groupList = null;
-    private List<ArtCat> categoryAList = null;
+    private List<ArtCat> ugroupList = null;
     private List<Article> articleList = null;
 
     private ArtMain group = null;
@@ -185,11 +185,11 @@ public class ServiceQuery {
     public void setGroupList(List<ArtMain> groupList) {
         this.groupList = groupList;
     }
-    
+
     /**
-     * 
+     *
      * @param ID
-     * @return 
+     * @return
      */
     public ArtMain getGroupByID(Long ID) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
@@ -198,6 +198,7 @@ public class ServiceQuery {
 
         return group;
     }
+
     /**
      * @param group the group to set
      */
@@ -206,21 +207,32 @@ public class ServiceQuery {
     }
 
     /**
-     * @return the categoryAList
+     * @return the groupList
      */
-    public List<ArtCat> getCategoryAList() {
+    public List<ArtCat> getCatAList() {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
         TypedQuery<ArtCat> query = em.createQuery("Select q from ArtCat q", ArtCat.class);
-        categoryAList = query.getResultList();
+        ugroupList = query.getResultList();
         em.close();
-        return categoryAList;
+        return ugroupList;
     }
 
     /**
-     * @param categoryAList the categoryAList to set
+     * @param ugroupList the groupList to set
      */
-    public void setCategoryAList(List<ArtCat> categoryAList) {
-        this.categoryAList = categoryAList;
+    public void setCatAList(List<ArtCat> ugroupList) {
+        this.ugroupList = ugroupList;
+    }
+
+    public ArtCat getCatAListByID(Long ID) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        categoryA = em.find(ArtCat.class, ID);
+        em.close();
+        return categoryA;
+    }
+
+    public void setCatAListByID(ArtCat artcat) {
+        this.categoryA = artcat;
     }
 
     /**

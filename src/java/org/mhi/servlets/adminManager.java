@@ -47,7 +47,9 @@ public class adminManager extends HttpServlet {
                     update.newGroup(main);
                     break;
                 case "ugroup":
+                    ArtMain artma = query.getGroupByID(Long.valueOf(fh.getParameter("mainGroup")));
                     ArtCat artcat = new ArtCat();
+                    artcat.setMain(artma);
                     artcat.setName(fh.getParameter("ugroup"));
                     update.newCatGroup(artcat);
                     break;
@@ -70,8 +72,12 @@ public class adminManager extends HttpServlet {
         if (sUri.endsWith("/action")) {
             // Delete Group     
             if (sDelete != null) {
-                delete.removeGroup(new ArtMain());
-                delete.removeGroup(query.getGroupByID(Long.valueOf(sDelete)));
+                if(request.getParameter("ugrp")!=null){
+                    delete.removeCatAList(query.getCatAListByID(Long.valueOf(sDelete)));
+                }else{
+                    //delete.removeGroup(new ArtMain());
+                    delete.removeGroup(query.getGroupByID(Long.valueOf(sDelete)));
+                }
 
                 request.getRequestDispatcher("/admin/creategroup.jsp").forward(request, response);
             } else {

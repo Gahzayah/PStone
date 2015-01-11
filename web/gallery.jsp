@@ -106,5 +106,3 @@
         </main> 
     </jsp:body>
 </t:genericPage>
-        
-        <%-- requestScope.CatByGalID     <c:out value="${galx.categoryList}"></c:out> --%>

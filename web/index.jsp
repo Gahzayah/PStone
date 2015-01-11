@@ -6,12 +6,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="artc" scope="page" class="org.mhi.database.ServiceQuery" />
 
 <t:genericPage titlepage="Title der Page">
     <jsp:attribute name="head">
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css" />"> 
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/article.css" />"> 
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/typografie.css" />"> 
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/gridrotator/custom.grid.css" />"  >
 
@@ -52,16 +55,17 @@
                     </ul>
                 </div> 
             </section>
-            <section class='pix400 borderLeft'>
-                <h3>Fusing</h3>
-                <p class="intro light">12.04.2014</p>
-                <p> Glasfusing das Zusammenschmelzen verschiedener Glasstücke im Spezialofen [..]</p> 
-                <h3>Fancy Glasschalen</h3><p class="intro light">12.07.2014</p>
-                <p> Neue Glasschalen in neuer Formtechnik erstellt, die herrausragende [..]</p> 
-            </section>
+            <%-- Alle Article mit Start-Flag ausgeben--%>
+            <c:forEach items="${artc.articleListByOSP}" var="art">
+                <section class='pix400 borderLeft'>
+                    <h3>${art.titel}</h3><p class="intro light">${art.timeStmp}</p>
+                    <%-- Lange Artikel werden nur verkürzt ausgegeben --%>
+                        ${art.text}
+                </section>    
+            </c:forEach>
         </main>  
         <script type="text/javascript" >
-            $(function() {
+            $(function () {
 
                 $('#ri-grid').gridrotator({
                     rows: 3,

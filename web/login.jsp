@@ -18,6 +18,7 @@
 
     <!-- Begin Page Content -->
     <div class="login-container">
+        <div class="login-information">Login für Adminstration</div>
        <form method="POST" action="j_security_check">
             <label for="j_username">Username:</label>
             <input type="text" name="j_username" />

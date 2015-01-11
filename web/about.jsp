@@ -7,7 +7,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<jsp:useBean id="service" scope="page" class="org.mhi.database.ServiceQuery" />
+<jsp:useBean id="about" scope="page" class="org.mhi.database.ServiceQuery" />
 
 
 <t:genericPage titlepage="Title der Page">
@@ -24,31 +24,35 @@
                 <h3>About</h3>
                 <hr>
             </section>
-            <section class="pix600">
-                <h2>Fusing</h2>
-                <p class="intro">
-                   Glasfusing das Zusammenschmelzen verschiedener Glasstücke im Spezialofen, ist eine seit 200 v. Ch. bekannte Technik. 
-                </p>
-                <p>
-                  Schon damals wurden Glasstangen zu Schalen verschmolzen. Die Beschäftigung mit Glas als kunsthandwerklichem Material allerdings, kam erst sehr viel später. In den letzten Jahrzehnten wurde das Verfahren weiterentwickelt und um neue Möglichkeiten bereichert. Hinter dieser Technik verbirgt sich nicht nur der Schmelzvorgang von Glasstücken als erster sondern auch das Formen der Glasstücke als zweiter Arbeitsschritt.  
-                </p>
-            </section>
+            <c:choose>
+                <c:when test="${not empty requestScope.firstArticle}" >
+                    <section class="pix600">
+                        <h2>${requestScope.firstArticle.titel}</h2>
+                        ${requestScope.firstArticle.text}
+                    </section>
+                </c:when>
+                <c:otherwise>
+                    <section class="pix600">
+                        <h2>${requestScope.selectArticle.titel}</h2>
+                        ${requestScope.selectArticle.text}
+                    </section>
+                </c:otherwise>
+            </c:choose>
+            <%-- Jede Gruppe ausgeben ausser 'Administration" - Gruppe --%>
             <section class="pix200 abnav">
                 <ul>
-                    <h3>Übermich</h3>
-                    <a href="#"><li>Barbara Steiner</li></a>
-                    <hr>
-                    <h3>Werkstatt</h3>
-                    <a href="#"><li>Fusing</li></a>
-                    <a href="#"><li>Brennvorgang</li></a>
-                    <a href="#"><li>Verformung</li></a>
-                    <hr>
-                    <h3>Partner</h3>
-                    <a href="#"><li>Jochen Eilert</li></a>
-                    <a href="#"><li>Fiona Ransom</li></a>
-                    <hr>
-                    <h3>Austellungen</h3>
-                    <a href="#"><li>Festival Romont</li></a>
+                    <c:forEach items="${about.groupList}" var="grp">
+                        <c:if test="${grp.name != 'Administration'}">
+                            <h3>${grp.name}</h3>
+                            <c:forEach items="${about.catAList}" var="cat">
+                                <c:if test="${grp.name == cat.main.name}">
+                                    <a href="<c:url value="/about/${cat.name}?id=${cat.artCatID}"/>"><li>${cat.name}</li></a>
+
+                                        </c:if>
+                                    </c:forEach>
+                            <hr />
+                        </c:if>
+                    </c:forEach>
                 </ul>
             </section>
         </main> 

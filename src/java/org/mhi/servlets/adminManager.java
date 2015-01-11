@@ -37,14 +37,30 @@ public class adminManager extends HttpServlet {
         String sDelete = request.getParameter("delete");
         String sCreate = request.getParameter("create");
         String sUri = request.getRequestURI();
+        
+        boolean osp = false;
+        boolean wsp = false;
 
+        /* Create - Erstellen neuer Inhalte 
+        ...................................
+        */
         if (sCreate != null) {
             FileHandler fh = new FileHandler(request);
+            
+            /* Convert "on" "off" to boolean; */
+            if(fh.getParameter("osp") != null){
+                if(fh.getParameter("osp").equals("on")){osp=true;}
+            }
+
+            if(fh.getParameter("wsp") != null){
+                if(fh.getParameter("wsp").equals("on")){wsp=true;}
+            }
             switch (sCreate) {
                 case "group":
                     ArtMain main = new ArtMain();
                     main.setName(fh.getParameter("group"));
                     update.newGroup(main);
+                    request.getRequestDispatcher("/admin/creategroup.jsp").forward(request, response);
                     break;
                 case "ugroup":
                     ArtMain artma = query.getGroupByID(Long.valueOf(fh.getParameter("mainGroup")));
@@ -52,33 +68,37 @@ public class adminManager extends HttpServlet {
                     artcat.setMain(artma);
                     artcat.setName(fh.getParameter("ugroup"));
                     update.newCatGroup(artcat);
+                    request.getRequestDispatcher("/admin/creategroup.jsp").forward(request, response);
                     break;
                 case "article":
+                    ArtCat cat = query.getCatAListByID(Long.valueOf(fh.getParameter("selectCategory")));
                     Article article = new Article();
+                    article.setCategory(cat);
                     article.setTitel("Title 1");
                     article.setText(fh.getParameter("article"));
+
+                    article.setOnlyStartPage(osp);
+                    article.setWithStartPage(wsp);
+
                     article.setTimeStmp(new Date());
                     update.newArticle(article);
+                    request.getRequestDispatcher("/admin/article").forward(request, response);                
                     break;
                 default:            /* Fehlermeldung */
-
             }
-            request.getRequestDispatcher("/admin/creategroup.jsp").forward(request, response);
         }
 
         /**
          * For All Group Interactions
          */
         if (sUri.endsWith("/action")) {
-            // Delete Group     
+            // Delete Group / Untergroup     
             if (sDelete != null) {
                 if(request.getParameter("ugrp")!=null){
                     delete.removeCatAList(query.getCatAListByID(Long.valueOf(sDelete)));
                 }else{
-                    //delete.removeGroup(new ArtMain());
                     delete.removeGroup(query.getGroupByID(Long.valueOf(sDelete)));
                 }
-
                 request.getRequestDispatcher("/admin/creategroup.jsp").forward(request, response);
             } else {
 

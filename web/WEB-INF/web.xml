@@ -44,6 +44,10 @@
         <servlet-name>jsp:createArticle</servlet-name>
         <jsp-file>/admin/createArticle.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>about</servlet-name>
+        <servlet-class>org.mhi.servlets.about</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreateCategory</servlet-name>
         <url-pattern>/admin/category/create</url-pattern>
@@ -94,8 +98,13 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>jsp:createArticle</servlet-name>
+        <url-pattern>/admin/createArticle.jsp</url-pattern>
         <url-pattern>/admin/article</url-pattern>
-        <url-pattern>/admin/createarticle.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>about</servlet-name>
+        <url-pattern>/about</url-pattern>
+        <url-pattern>/about/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

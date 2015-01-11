@@ -238,15 +238,60 @@ public class ServiceQuery {
     /**
      * @return the articleList
      */
-    public List<Article> getArticleList() {
+    public List<Article> getArticleListByOSP() {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        TypedQuery<Article> query = em.createQuery("Select q from Article q where q.onlyStartPage = true", Article.class);
+        articleList = query.getResultList();
+        em.close();
+
         return articleList;
     }
 
     /**
      * @param articleList the articleList to set
      */
-    public void setArticleList(List<Article> articleList) {
+    public void setArticleListByOSP(List<Article> articleList) {
         this.articleList = articleList;
+    }
+
+    public List<Article> getArticleListByNonOSP() {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        TypedQuery<Article> query = em.createQuery("Select q from Article q where q.onlyStartPage = false", Article.class);
+        articleList = query.getResultList();
+        em.close();
+
+        return articleList;
+    }
+
+    /**
+     * @param articleList the articleList to set
+     */
+    public void setArticleListByNonOSP(List<Article> articleList) {
+        this.articleList = articleList;
+    }
+
+    public Article getArticleByID(long ID) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        article = em.find(Article.class, ID);
+        em.close();
+
+        return article;
+    }
+
+    public void setArticleByID(Article article) {
+        this.article = article;
+    }
+
+    public Article getArticleByCatID(long ID) {
+        EntityManager em = getEnitityManagerFactory().createEntityManager();
+        TypedQuery<Article> query = em.createQuery("Select q from Article q where q.artCatID = " + ID, Article.class);
+        em.close();
+
+        return article;
+    }
+
+    public void setArticleByCatID(Article article) {
+        this.article = article;
     }
 
     /**

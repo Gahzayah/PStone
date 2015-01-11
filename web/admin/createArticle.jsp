@@ -36,17 +36,19 @@
             <h2>Artikel schreiben und einer Gruppe zuordnen.</h2>
             <hr/>
             <form action="${pageContext.servletContext.contextPath}/admin/article/action?create=article" enctype="multipart/form-data" method="POST">
-                <select name="gallery" onchange="this.className = this.options[this.selectedIndex].className" class="light" required>
-                    <option selected>Gruppe wählen</option>
-                    <c:forEach items="${galx.groupList}" var="gal">
-                        <option class="dark" value="${gal.artMainID}">${gal.name}</option>
+                <select name="selectCategory" onchange="this.className = this.options[this.selectedIndex].className" class="light" required>
+                    <option selected>Untergruppe wählen</option>
+                    <c:forEach items="${galx.catAList}" var="cat">
+                        <option class="dark" value="${cat.artCatID}">${cat.name}</option>
                     </c:forEach>
                 </select>
+                <div class="checkbox"><input type="checkbox" name="osp" id="nur"><label for="nur">Nur Auf Startseite anzeigen</label></div>
+                <div class="checkbox"><input type="checkbox" name="wsp" id="mit"><label for="mit">Mit Auf Startseite anzeigen</label></div>
+                <input type="text" name="title" placeholder="Titel für diesen Artikel" />
                 <textarea name="article">Meine Textarea</textarea>
                 <hr/>
                 <input type="checkbox" class="checkbox" name="startpage" value="2"/>
                 <input type="submit" name="commit" value="speichern">
-                
             </form>
         </main>
     </jsp:body>

@@ -7,14 +7,17 @@ package org.mhi.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 /**
  *
@@ -30,8 +33,10 @@ public class Article implements Serializable{
     private ArtCat category;     
     private String titel = null;
     private String text = null;
-//    @OneToMany(mappedBy = "gallery" , orphanRemoval=true )
-//    private List<Images> imageList = null;
+//    @OneToMany(mappedBy = "category" , orphanRemoval=true )
+//    private List<ArtCat> catList = null;  
+    private boolean withStartPage = false;
+    private boolean onlyStartPage = false;
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStmp = new Date();
   
@@ -67,6 +72,22 @@ public class Article implements Serializable{
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isWithStartPage() {
+        return withStartPage;
+    }
+
+    public void setWithStartPage(boolean withStartPage) {
+        this.withStartPage = withStartPage;
+    }
+
+    public boolean isOnlyStartPage() {
+        return onlyStartPage;
+    }
+
+    public void setOnlyStartPage(boolean onlyStartPage) {
+        this.onlyStartPage = onlyStartPage;
     }
 
     public Date getTimeStmp() {

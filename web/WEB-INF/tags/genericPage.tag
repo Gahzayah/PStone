@@ -95,7 +95,7 @@
             <nav>
                 <ul>
                     <a href="<c:url value="/index.jsp" />"><li>Start</li></a>
-                    <a href="<c:url value="/about.jsp" />"><li>About</li></a>
+                    <a href="<c:url value="/about" />"><li>About</li></a>
                     <a href="<c:url value="/gallery" />"><li>Gallery</li></a>
                     <a href="<c:url value="/workshop.jsp" />"><li>Workshop</li></a>
                     <a href="<c:url value="/contact.jsp" />"><li>Contact</li></a>

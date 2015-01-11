@@ -88,9 +88,6 @@ select {
     }
 }
 
-select option {
-
-}
 // Trennlinie
 .select-hr { border-bottom: 1px dotted #000; }
 
@@ -187,7 +184,11 @@ input[type=checkbox]:checked + label:before {
     animation-iteration-count: 1;
     animation-timing-function: linear;
 }
-
+.login-information {
+    background-color: #999;
+    color:white;
+    padding: 0 25px;
+}
 .login-container form {
     margin: 0 auto;
     padding: 25px;

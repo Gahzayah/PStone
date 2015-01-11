@@ -17,6 +17,21 @@
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/input.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/contact.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/about.css"/>" >
+        <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/lib/tinymce/tinymce.min.js"></script>
+                <script type="text/javascript">
+            tinymce.init({
+                selector: "textarea"
+            });
+            var content = null;
+            
+            function setData(data){
+                this.content = data;
+            }
+            
+            function setContent(){
+                tinyMCE.get('article').setContent(content);
+            }
+        </script>
     </jsp:attribute>
     <jsp:body>
         <main>
@@ -34,7 +49,16 @@
                 <c:otherwise>
                     <section class="pix600">
                         <h2>${requestScope.selectArticle.titel}</h2>
+                        <%-- Article Inhalt --%>
                         ${requestScope.selectArticle.text}
+                        <%-- Edit Inhalt im Admin-Mode --%>
+                        <c:if test="${sessionScope.isAuthenticated}">
+                            <%-- Lade Inhalt ---%>
+                            <form action="${pageContext.servletContext.contextPath}/admin/article/action?update=${requestScope.selectArticle.articleID}" enctype="multipart/form-data" method="POST">
+                                <textarea name="article">${requestScope.selectArticle.text}</textarea>
+                                <input type="submit" value="speichern"/>  
+                            </form>
+                        </c:if>
                     </section>
                 </c:otherwise>
             </c:choose>

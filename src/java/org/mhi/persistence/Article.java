@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 public class Article implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long imageID;
+    private Long articleID;
     @ManyToOne
     @JoinColumn(name="CATEGORY_ARTCATID")
     private ArtCat category;     
@@ -42,12 +42,12 @@ public class Article implements Serializable{
   
     private static final long serialVersionUID = 1L;
 
-    public Long getImageID() {
-        return imageID;
+    public Long getArticleID() {
+        return articleID;
     }
 
-    public void setImageID(Long imageID) {
-        this.imageID = imageID;
+    public void setArticleID(Long imageID) {
+        this.articleID = imageID;
     }
 
     public ArtCat getCategory() {

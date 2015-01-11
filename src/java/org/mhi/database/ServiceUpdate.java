@@ -120,4 +120,19 @@ public class ServiceUpdate {
         }
     }
 
+    public void updateArticle(Article article) {
+        EntityManager em = DBUtil.getEnitityManagerFactory().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(article);
+            em.refresh(article);
+            em.flush();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            System.out.println("SQL-Exception: Transaction failed." + ex);
+        } finally {
+            em.close();
+        }
+    }
+
 }

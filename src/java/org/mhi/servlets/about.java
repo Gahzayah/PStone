@@ -42,18 +42,20 @@ public class about extends HttpServlet {
         // Which Group Entry ?
         String groupID = request.getParameter("id");
 
+
         if (groupID != null) {
-            // A Specify Request for a Gallery
-            ArtCat artcat = query.getCatAListByID(Long.parseLong(groupID));
-            if(artcat.getArtikel().size() != 0){
-                request.setAttribute("selectArticle", artcat.getArtikel().get(0));
-            }
+                ArtCat artcat = query.getCatAListByID(Long.parseLong(groupID));
+                if(artcat.getArtikel().size() != 0){
+                    request.setAttribute("selectArticle", artcat.getArtikel().get(0));
+                }
         } else {
             //First Visit set the first category in the first gallery        
             List<ArtMain> list = query.getGroupList();
-            Article art = list.get(0).getCategory().get(0).getArtikel().get(0);
-
-            request.setAttribute("firstArticle", art);
+            if(list.get(0).getCategory().get(0).getArtikel().size() != 0){
+                Article art = list.get(0).getCategory().get(0).getArtikel().get(0);
+                request.setAttribute("firstArticle", art);
+            }
+            
         }
 
         request.getRequestDispatcher("/about.jsp").forward(request, response);

@@ -35,6 +35,7 @@ public class adminManager extends HttpServlet {
         ServiceDelete delete = new ServiceDelete();
 
         String sDelete = request.getParameter("delete");
+        String sUpdate = request.getParameter("update");
         String sCreate = request.getParameter("create");
         String sUri = request.getRequestURI();
         
@@ -100,9 +101,15 @@ public class adminManager extends HttpServlet {
                     delete.removeGroup(query.getGroupByID(Long.valueOf(sDelete)));
                 }
                 request.getRequestDispatcher("/admin/creategroup.jsp").forward(request, response);
-            } else {
-
             }
+            if(sUpdate != null){
+                FileHandler fh = new FileHandler(request);
+                Article article = query.getArticleByID(Long.parseLong(sUpdate));
+                article.setText(fh.getParameter("article"));
+                update.updateArticle(article);
+                response.sendRedirect("/z1/about");
+            }
+            
         }
     }
 

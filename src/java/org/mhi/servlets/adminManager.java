@@ -109,6 +109,8 @@ public class adminManager extends HttpServlet {
                 update.updateArticle(article);
                 response.sendRedirect("/z1/about");
             }
+            //Debug
+            query.getArticleByID(Long.parseLong(sUpdate));
             
         }
     }

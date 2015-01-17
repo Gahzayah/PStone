@@ -25,10 +25,6 @@
         <servlet-class>org.mhi.servlets.ImageUpload</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateGallery</servlet-name>
-        <servlet-class>org.mhi.servlets.CreateGallery</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SRV:Gallery</servlet-name>
         <servlet-class>org.mhi.servlets.GetGallery</servlet-class>
     </servlet>
@@ -48,10 +44,6 @@
         <servlet-name>about</servlet-name>
         <servlet-class>org.mhi.servlets.about</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>CreateCategory</servlet-name>
-        <url-pattern>/admin/category/create</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Category (edit)</servlet-name>
         <url-pattern>/admin/category</url-pattern>
@@ -78,10 +70,6 @@
     <servlet-mapping>
         <servlet-name>Images (add)</servlet-name>
         <url-pattern>/admin/upload</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreateGallery</servlet-name>
-        <url-pattern>/admin/gallery/create</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SRV:Gallery</servlet-name>
@@ -114,10 +102,6 @@
     <servlet>
         <servlet-name>Authentication</servlet-name>
         <servlet-class>org.mhi.auth.Authentication</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CreateCategory</servlet-name>
-        <servlet-class>org.mhi.servlets.CreateCategory</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Images (add)</servlet-name>

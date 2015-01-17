@@ -7,7 +7,8 @@
 
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html; charset=utf-8" 
+        pageEncoding="utf-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%-- Import Class to access via EL --%>
 <jsp:useBean id="galx" scope="page" class="org.mhi.database.ServiceQuery" />
@@ -41,7 +42,7 @@
                 <%-- Images hinzufügen --%>
                 <input type="button" name="add" value="Bilder hinzufügen" style="margin-bottom:15px">
 
-                <input id="fileInput" type="file" name="files" multiple/>
+                <input id="fileInput" type="file" name="files" />
                 <!-- The file uploads will be shown here -->
                 <div id="prevUpload"></div>
 

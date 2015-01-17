@@ -7,7 +7,7 @@
 
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%-- Import Class to access via EL --%>
@@ -30,9 +30,9 @@
         <main>
             <h2>Gallerie anlegen</h2>
             <hr/>
-            <form action="${pageContext.servletContext.contextPath}/admin/gallery/create" enctype="multipart/form-data" method="POST">
-                <input type="text" name="newGallery" placeholder="Neue Gallery" size="20" required>
-                <input type="text" name="newDescription" placeholder="Beschreibung" size="55" required>
+            <form action="${pageContext.servletContext.contextPath}/admin/gallery/action?create=gallery" enctype="multipart/form-data" method="POST">
+                <input type="text" name="xs_gallery" placeholder="Neue Gallerie" size="20" required>
+                <%-- <input type="text" name="xs_desc" placeholder="Beschreibung" size="55" required> Not in Use now --%>
                 <input type="submit" name="commit" value="speichern">
             </form>
             <script>
@@ -60,7 +60,7 @@
                         <tbody>
                             <c:forEach items="${galx.galleryList}" var="gal">
                                 <tr><td><b>${gal.name}</b></td>
-                                    <td>${gal.description}</td>
+                                    <td>${fn:length(gal.category)}&nbsp;Kategorien</td>
                                     <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/gallery/delete?id=${gal.imgGalleryID}"><i class="fa fa-times-circle"/></a></td>
                                 </tr>
                             </c:forEach>

@@ -6,67 +6,75 @@
 package org.mhi.servlets;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.InputStream;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.fileupload.FileUploadException;
+import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import org.mhi.database.ServiceQuery;
 import org.mhi.database.ServiceUpdate;
-import org.mhi.imageutilities.FileHandler;
 import org.mhi.persistence.Images;
 import org.mhi.persistence.ImgCat;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,   // 2MB
+        maxFileSize = 1024 * 1024 * 10,                 // 10MB
+        maxRequestSize = 1024 * 1024 * 50)              // 50MB
 
 public class ImageUpload extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     * @throws org.apache.commons.fileupload.FileUploadException
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, FileUploadException {
-        // Apache Common Fileupload IO Class
-        FileHandler fh = new FileHandler(request);
+            throws ServletException, IOException {
 
-        if (fh.isMultipart()) {
-            // Service Class for DB - Actions
-            ServiceQuery query = new ServiceQuery();
-            ServiceUpdate update = new ServiceUpdate();
-            // new Images
+        request.setCharacterEncoding("UTF-8");
+
+        // Service Class for DB - Actions
+        ServiceQuery query = new ServiceQuery();
+        ServiceUpdate update = new ServiceUpdate();
+
+        String imgName = request.getParameter("name");
+        String imgDesc = request.getParameter("desc");
+        String imgCat  = request.getParameter("category");
+        String fileSize = null;
+        String fileName = null;
+        String contentType = null;
+        String[] parts = null;
+
+        InputStream inputStream = null; // input stream of the upload file
+
+        // obtains the upload file part in this multipart request
+        Part filePart = request.getPart("files");
+        
+        if (filePart != null) {
+            // Fill up Information extract from File
+            fileSize = "" + filePart.getSize();
+            parts = filePart.getSubmittedFileName().split("\\.");
+            contentType = filePart.getContentType();
+
+            // obtains input stream of the upload file
+            inputStream = filePart.getInputStream();
+
+            // new Image
             Images img = new Images();
             // Set Parameters
-            img.setFileName(fh.getFileName());
-            img.setName(fh.getParameter("name"));
-            img.setDescription(fh.getParameter("desc"));
-            img.setFileBlob(IOUtils.toByteArray(fh.getFile("files")));
-            img.setFileSize("" + fh.getFileSize());
-            img.setcTyp(fh.getContentType());
+            img.setFileName(imgName + "." + parts[1]);
+            img.setName(imgName);
+            img.setDescription(imgDesc);
+            img.setFileBlob(IOUtils.toByteArray(inputStream));
+            img.setFileSize(fileSize);
+            img.setcTyp(contentType);
             // Relationship to Category
-            ImgCat cat = query.getCategoryByID(Long.valueOf(fh.getParameter("category")));
+            ImgCat cat = query.getCategoryByID(Long.valueOf(imgCat));
             img.setCategory(cat);
             // Persist to Database
             update.insertImage(img);
-            
-            response.sendRedirect(request.getServletContext().getContextPath() + "/admin/upload");
-         
         }
+        response.sendRedirect(request.getServletContext().getContextPath() + "/admin/upload");
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -79,11 +87,7 @@ public class ImageUpload extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (FileUploadException ex) {
-            Logger.getLogger(ImageUpload.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -97,11 +101,7 @@ public class ImageUpload extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (FileUploadException ex) {
-            Logger.getLogger(ImageUpload.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

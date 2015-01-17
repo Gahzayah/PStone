@@ -29,7 +29,7 @@
         <main>
             <h3>Neue Kategorie anlegen</h3>
             <hr/>
-            <form action="${pageContext.servletContext.contextPath}/admin/category/create" enctype="multipart/form-data" method="POST">
+            <form action="${pageContext.servletContext.contextPath}/admin/category/action?create=category" enctype="multipart/form-data" method="POST">
                 <select name="gallery" onchange="this.className = this.options[this.selectedIndex].className" class="light" required>
                     <option selected>Gallery wählen</option>
                     <c:forEach items="${galx.galleryList}" var="gal">
@@ -41,9 +41,9 @@
                 <div id="prevUpload"></div>
                 <input id="fileInput" type="file" name="files" required/>
                 <label for="newCategory">Neue Kategorie</label>
-                <input type="text"  name="newCategory" required>
-                <label for="newDescription">Beschreibung</label>
-                <input type="text" name="newDescription"  required>
+                <input type="text"  name="xs_category" required>
+                <%-- <label for="newDescription">Beschreibung</label>
+                <input type="text" name="newDescription"  required> --%>
                 <input type="submit" name="upload" value="speichern">  
             </form>
             <script>
@@ -87,7 +87,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Beschreibung</th>
+                                <%-- <th>Anz. Bilder</th> --%>
                                 <th>Gallerie</th>
                                 <th class="center">Löschen</th>
                             </tr>
@@ -96,7 +96,7 @@
                             <c:forEach items="${galx.categoryList}" var="cat">
                                 <tr>
                                     <td>${cat.name}</td>
-                                    <td>${cat.description}</td>
+                                    <%-- <td>${cat.images}&nbsp;Bilder</td> --%>
                                     <td>${cat.gallery.name}</td>
                                     <td class="center"><a href="${pageContext.servletContext.contextPath}/admin/category/delete?id=${cat.imgCatID}"><i class="fa fa-times-circle"/></a></td>
                                 </tr>

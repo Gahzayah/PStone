@@ -7,6 +7,8 @@ package org.mhi.imageutilities;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +22,14 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author MaHi
  */
 public class FileHandler {
+    
+    private static ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES); 
 
     DiskFileItemFactory factory = new DiskFileItemFactory();
     ServletFileUpload upload = new ServletFileUpload(factory);
     HttpServletRequest request = null;
     List<FileItem> items = null;
-    
+
     String fileName = null;
     String ContentType = null;
     long fileSize = 0;
@@ -34,18 +38,19 @@ public class FileHandler {
         this.request = req;
         items = upload.parseRequest(request);
     }
-    public boolean isMultipart(){
+
+    public boolean isMultipart() {
         boolean result = ServletFileUpload.isMultipartContent(request);
-        return result;       
+        return result;
     }
 
-    public String getParameter(String field_name) {
+    public String getParameter(String field_name) throws UnsupportedEncodingException {
         String result = null;
         Iterator<FileItem> iter = items.iterator();
         while (iter.hasNext()) {
             FileItem item = iter.next();
             if (item.getFieldName().equals(field_name)) {
-                result = item.getString();
+                result = new String(item.get(),"UTF-8");
 
             }
         }
@@ -62,7 +67,7 @@ public class FileHandler {
                 setContentType(item.getContentType());
                 setFileSize(item.getSize());
                 setFileName(item.getName());
-                
+
             }
         }
         return blob;
@@ -91,7 +96,11 @@ public class FileHandler {
     public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
     }
-    
-     
+
+    public static long bytesToLong(byte[] bytes) {
+        buffer.put(bytes, 0, bytes.length);
+        buffer.flip();//need flip 
+        return buffer.getLong();
+    }
 
 }

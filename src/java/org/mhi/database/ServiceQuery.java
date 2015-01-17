@@ -6,8 +6,11 @@
 package org.mhi.database;
 
 import java.util.List;
+import static javafx.scene.input.KeyCode.T;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import org.mhi.persistence.ImgCat;
 import org.mhi.persistence.ImgGallery;
 import static org.mhi.database.DBUtil.getEnitityManagerFactory;
@@ -46,7 +49,8 @@ public class ServiceQuery {
      */
     public List<ImgGallery> getGalleryList() {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        TypedQuery<ImgGallery> query = em.createQuery("Select q from ImgGallery q", ImgGallery.class);
+        
+        TypedQuery<ImgGallery> query = em.createQuery("Select q from ImgGallery q Order by q.name", ImgGallery.class);
         galleryList = query.getResultList();
         em.close();
         return galleryList;
@@ -80,7 +84,7 @@ public class ServiceQuery {
      */
     public List<ImgCat> getCategoryList() {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q", ImgCat.class);
+        TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q Order by q.name", ImgCat.class);
         categoryList = query.getResultList();
         em.close();
         return categoryList;
@@ -120,7 +124,7 @@ public class ServiceQuery {
      */
     public List<ImgCat> getCategoryListByID(String ID) {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q where q.gallery.imgGalleryID = " + ID, ImgCat.class);
+        TypedQuery<ImgCat> query = em.createQuery("Select q from ImgCat q where q.gallery.imgGalleryID = " + ID + " Order by q.name", ImgCat.class);
         categoryByGalleryID = query.getResultList();
         em.close();
         return categoryByGalleryID;
@@ -173,7 +177,7 @@ public class ServiceQuery {
      */
     public List<ArtMain> getGroupList() {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        TypedQuery<ArtMain> query = em.createQuery("Select q from ArtMain q", ArtMain.class);
+        TypedQuery<ArtMain> query = em.createQuery("Select q from ArtMain q Order by q.name", ArtMain.class);
         groupList = query.getResultList();
         em.close();
         return groupList;
@@ -211,7 +215,7 @@ public class ServiceQuery {
      */
     public List<ArtCat> getCatAList() {
         EntityManager em = getEnitityManagerFactory().createEntityManager();
-        TypedQuery<ArtCat> query = em.createQuery("Select q from ArtCat q", ArtCat.class);
+        TypedQuery<ArtCat> query = em.createQuery("Select q from ArtCat q Order by q.name", ArtCat.class);
         ugroupList = query.getResultList();
         em.close();
         return ugroupList;

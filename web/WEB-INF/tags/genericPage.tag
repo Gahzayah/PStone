@@ -5,7 +5,7 @@
     Version    : 0.1 - 29.06.2014 - Initialisierung 
 --%>
 
-<%@tag description="Generic Template" pageEncoding="UTF-8"%>
+<%@tag description="Generic Template" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@attribute name="titlepage"%>                     <%-- Be Careful to get Conflict JavaBeans capitalization rules - TitlePage will not work --%>

@@ -83,7 +83,7 @@ public class ServiceUpdate {
         try {
             em.getTransaction().begin();
             em.persist(img);
-            em.flush();
+            em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
             System.out.println("SQL-Exception: Transaction failed." + ex);
